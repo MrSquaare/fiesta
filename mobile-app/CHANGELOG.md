@@ -1,3 +1,10 @@
+## 1.0.0 (2022-09-03)
+
+
+### Features
+
+* add project ([b5313fc](https://github.com/MrSquaare/fiesta/commit/b5313fcb55e082d90349fb59aa3a57001366c602))
+
 ## [1.1.0](https://github.com/MrSquaare/fiesta/compare/mobile-app@1.0.0...mobile-app@1.1.0) (2022-09-03)
 
 

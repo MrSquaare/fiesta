@@ -1,0 +1,10 @@
+# Build
+builds/
+dist/
+
+# Rust
+debug/
+target/
+
+# Tests
+coverage/

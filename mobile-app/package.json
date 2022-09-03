@@ -1,0 +1,49 @@
+{
+  "private": true,
+  "name": "mobile-app",
+  "version": "1.1.0",
+  "scripts": {
+    "wait:vite": "wait-on tcp:1421",
+    "wait:dev:android": "npm run wait:vite && npm run run:android",
+    "wait:dev:ios": "npm run wait:vite && npm run run:ios",
+    "sync": "cap sync",
+    "run:android": "cap run android -l",
+    "run:ios": "cap run ios -l",
+    "dev": "vite",
+    "dev:android": "npm-run-all -p dev wait:dev:android",
+    "dev:ios": "npm-run-all -p dev wait:dev:ios",
+    "build": "tsc && vite build",
+    "build:android": "npm run build && npm run sync && (cd android/ && bundle exec fastlane build_debug)",
+    "build:ios": "npm run build && npm run sync && (cd ios/App/ && bundle exec fastlane build_debug)",
+    "lint": "eslint src/",
+    "format": "eslint src/ --fix",
+    "clean:android": "rimraf android/app/build/",
+    "clean:ios": "rimraf ios/App/build/",
+    "clean": "npm run clean:android && rimraf builds/ dist/",
+    "fclean:android": "npm run clean:android && rimraf android/.gradle/",
+    "fclean:ios": "npm run clean:ios",
+    "fclean": "npm run clean && npm run fclean:android && rimraf node_modules/"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "@capacitor/android": "^4.1.0",
+    "@capacitor/cli": "^4.1.0",
+    "@capacitor/core": "^4.1.0",
+    "@capacitor/ios": "^4.1.0",
+    "@common/graphql": "*",
+    "flowbite": "^1.5.2",
+    "flowbite-react": "^0.1.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.1",
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
+    "typescript": "^4.8.2",
+    "vite": "^3.0.9"
+  }
+}

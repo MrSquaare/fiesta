@@ -1,0 +1,10 @@
+# Build
+builds/
+dist/
+
+# Android
+.gradle/
+build/
+
+# Tests
+coverage/

@@ -1,0 +1,34 @@
+{
+  "private": true,
+  "name": "@common/graphql",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "require:server": "npm -w server run start",
+    "wait:server": "wait-on tcp:3000",
+    "wait:dev": "npm run wait:server && npm-run-all -p -r dev:**",
+    "wait:build": "npm run wait:server && npm-run-all -s build:**",
+    "dev:codegen": "graphql-codegen --watch",
+    "dev:ts": "tsc -w",
+    "dev": "npm run wait:dev",
+    "build:codegen": "graphql-codegen",
+    "build:ts": "tsc",
+    "build": "npm-run-all -p -r require:server wait:build",
+    "lint": "eslint src/",
+    "format": "eslint src/ --fix",
+    "clean": "rimraf dist/",
+    "fclean": "rimraf node_modules/"
+  },
+  "devDependencies": {
+    "server": "*",
+    "@apollo/client": "^3.6.9",
+    "@graphql-codegen/cli": "2.11.8",
+    "@graphql-codegen/import-types-preset": "^2.2.3",
+    "@graphql-codegen/typescript": "2.7.3",
+    "@graphql-codegen/typescript-operations": "2.5.3",
+    "@graphql-codegen/typescript-react-apollo": "3.3.3",
+    "graphql": "^16.6.0",
+    "typescript": "^4.8.2"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "baseBranch": "origin/main",
+  "npmClient": "npm",
+  "pipeline": {
+    "dev": {
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "build:desktop": {
+      "dependsOn": [],
+      "outputs": ["dist/**", "src-tauri/target/**"]
+    },
+    "build:android": {
+      "dependsOn": [],
+      "outputs": ["dist/**", "android/app/build/**"]
+    },
+    "build:ios": {
+      "dependsOn": [],
+      "outputs": ["dist/**", "ios/App/build/**"]
+    },
+    "start": {
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    },
+    "format": {
+      "outputs": []
+    },
+    "test": {
+      "outputs": []
+    },
+    "clean": {
+      "outputs": []
+    },
+    "fclean": {
+      "outputs": []
+    }
+  }
+}

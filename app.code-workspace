@@ -1,0 +1,33 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "name": "desktop-app",
+      "path": "./desktop-app"
+    },
+    {
+      "name": "mobile-app",
+      "path": "./mobile-app"
+    },
+    {
+      "name": "server",
+      "path": "./server"
+    },
+    {
+      "name": "graphql",
+      "path": "./common/graphql"
+    },
+    {
+      "name": "common",
+      "path": "./common"
+    },
+  ],
+  "settings": {
+    "graphql-config.load.rootDir": "./common/graphql",
+    "jest.autoRun": "off",
+    "jest.jestCommandLine": "npm run test --",
+  }
+}

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "mobile-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "wait:vite": "wait-on tcp:1421",
     "wait:dev:android": "npm run wait:vite && npm run run:android",

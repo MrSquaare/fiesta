@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/MrSquaare/fiesta/compare/mobile-app@1.0.0...mobile-app@1.0.1) (2022-09-03)
+
+
+### Bug Fixes
+
+* gradlew permission ([b0accc5](https://github.com/MrSquaare/fiesta/commit/b0accc55f673a4164bf4f9a848fb55591aa30731))
+
 ## 1.0.0 (2022-09-03)
 
 

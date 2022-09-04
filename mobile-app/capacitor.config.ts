@@ -1,17 +1,18 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const config: CapacitorConfig = {
   appId: "app.fiesta",
-  appName: "fiesta",
+  appName: "Fiesta",
   webDir: "dist",
   bundledWebRuntime: false,
-  server:
-    process.env.NODE_ENV === "development"
-      ? {
-          cleartext: true,
-          url: "http://localhost:1421",
-        }
-      : undefined,
+  server: isDev
+    ? {
+        cleartext: true,
+        url: "http://localhost:1421",
+      }
+    : undefined,
 };
 
 export default config;

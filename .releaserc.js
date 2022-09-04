@@ -48,8 +48,25 @@ module.exports = withMonorepo({
       },
     ],
     "@semantic-release/changelog",
-    "@semantic-release/npm",
-    "@semantic-release/git",
+    [
+      "@semantic-release/npm",
+      {
+        prepareCmd: "npm run prepare --if-present",
+      },
+    ],
+    [
+      "@semantic-release/git",
+      {
+        assets: [
+          "CHANGELOG.md",
+          "package.json",
+          "package-lock.json",
+          "npm-shrinkwrap.json",
+          "build.gradle",
+          "project.pbxproj",
+        ],
+      },
+    ],
     [
       "@semantic-release/github",
       {

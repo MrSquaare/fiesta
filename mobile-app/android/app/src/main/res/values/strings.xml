@@ -1,7 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8' ?>
 <resources>
-    <string name="app_name">fiesta</string>
-    <string name="title_activity_main">fiesta</string>
+    <string name="app_name">Fiesta</string>
+    <string name="title_activity_main">Fiesta</string>
     <string name="package_name">app.fiesta</string>
     <string name="custom_url_scheme">app.fiesta</string>
 </resources>

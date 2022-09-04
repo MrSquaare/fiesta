@@ -3,7 +3,7 @@
   "name": "mobile-app",
   "version": "1.0.1",
   "scripts": {
-    "prepare": "ts-node --swc ./trapeze.config.ts",
+    "prepare": "ts-node ./trapeze.config.ts",
     "wait:vite": "wait-on tcp:1421",
     "wait:dev:android": "npm run wait:vite && npm run run:android",
     "wait:dev:ios": "npm run wait:vite && npm run run:ios",
@@ -32,15 +32,16 @@
     "@capacitor/core": "^4.1.0",
     "@capacitor/ios": "^4.1.0",
     "@common/graphql": "*",
-    "flowbite": "^1.5.2",
+    "@iconify/icons-twemoji": "^1.2.5",
+    "@iconify/react": "^3.2.2",
+    "flowbite": "^1.5.3",
     "flowbite-react": "^0.1.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.2.246",
     "@trapezedev/project": "^5.0.1",
-    "@types/react": "^18.0.17",
+    "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.1",
     "autoprefixer": "^10.4.8",

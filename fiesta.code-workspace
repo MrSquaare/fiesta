@@ -1,0 +1,25 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "name": "mobile-app",
+      "path": "./mobile-app"
+    },
+    {
+      "name": "microservices",
+      "path": "./microservices"
+    },
+    {
+      "name": "common",
+      "path": "./common"
+    },
+  ],
+  "settings": {
+    "graphql-config.load.rootDir": "./common/graphql",
+    "jest.autoRun": "off",
+    "jest.jestCommandLine": "npx jest",
+  }
+}

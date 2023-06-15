@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "name": "@microservices/types",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "nest build --watch",
+    "prebuild": "rimraf dist/",
+    "build": "nest build",
+    "lint": "eslint src/**/*.ts",
+    "format": "eslint src/**/*.ts --fix",
+    "test": "jest",
+    "clean": "rimraf dist/",
+    "fclean": "pnpm run clean && rimraf node_modules/"
+  },
+  "dependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/graphql": "^11.0.6",
+    "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "rimraf": "^5.0.1",
+    "typeorm": "^0.3.16"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.0.1",
+    "@nestjs/schematics": "^10.0.1",
+    "@types/node": "^20.3.1",
+    "tsconfig-paths": "4.2.0",
+    "typescript": "^5.1.3"
+  }
+}

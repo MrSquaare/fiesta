@@ -1,0 +1,2 @@
+export const USER_BRIDGE_NAME = "USER_BRIDGE";
+export const USER_BRIDGE_CHECK = "USER_CHECK";

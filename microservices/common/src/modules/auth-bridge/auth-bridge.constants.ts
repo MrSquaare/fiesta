@@ -1,0 +1,2 @@
+export const AUTH_BRIDGE_NAME = "AUTH_BRIDGE";
+export const AUTH_BRIDGE_CHECK = "AUTH_CHECK";

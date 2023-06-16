@@ -5,6 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "preinstall": "npx -y only-allow pnpm",
     "start:microservices": "pnpm -w @microservices/gateway run start:microservices",
     "wait:microservices": "wait-on tcp:3000",
     "wait:dev": "pnpm run wait:microservices && npm-run-all -p -r dev:**",

@@ -1,4 +1,5 @@
-import { Account, Auth } from "@microservices/types/dist";
+import { Account } from "@microservices/types/dist/account";
+import { Auth } from "@microservices/types/dist/auth";
 import {
   BadRequestException,
   ForbiddenException,

@@ -3,6 +3,7 @@
   "name": "@microservices/communities",
   "version": "0.0.1",
   "scripts": {
+    "preinstall": "npx -y only-allow pnpm",
     "dev": "nest start --watch --preserveWatchOutput",
     "dev:debug": "nest start --debug --watch --preserveWatchOutput",
     "prebuild": "rimraf dist/",
@@ -17,9 +18,9 @@
   },
   "dependencies": {
     "@apollo/federation": "^0.38.1",
-    "@apollo/gateway": "^2.4.7",
-    "@apollo/server": "^4.7.3",
-    "@apollo/subgraph": "^2.4.7",
+    "@apollo/gateway": "^2.4.8",
+    "@apollo/server": "^4.7.4",
+    "@apollo/subgraph": "^2.4.8",
     "@microservices/common": "*",
     "@microservices/types": "*",
     "@nestjs/apollo": "^11.0.6",
@@ -40,6 +41,7 @@
     "@types/jest": "29.5.2",
     "@types/node": "^20.3.1",
     "@types/supertest": "^2.0.12",
+    "jest": "^29.5.0",
     "source-map-support": "^0.5.21",
     "supertest": "^6.3.3",
     "ts-loader": "^9.4.3",

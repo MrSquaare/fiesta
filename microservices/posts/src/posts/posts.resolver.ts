@@ -1,5 +1,6 @@
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
-import { Post, User } from "@microservices/types/dist";
+import { Post } from "@microservices/types/dist/post";
+import { User } from "@microservices/types/dist/user";
 import { UseGuards } from "@nestjs/common";
 import {
   Resolver,

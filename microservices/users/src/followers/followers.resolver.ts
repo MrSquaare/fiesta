@@ -1,5 +1,6 @@
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
-import { Follower, User } from "@microservices/types/dist";
+import { Follower } from "@microservices/types/dist/follower";
+import { User } from "@microservices/types/dist/user";
 import { UseGuards } from "@nestjs/common";
 import {
   Resolver,

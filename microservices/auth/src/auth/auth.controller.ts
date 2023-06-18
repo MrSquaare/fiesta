@@ -18,7 +18,10 @@ export class AuthController {
   ): Promise<AuthCheckResMessage> {
     try {
       const account = await this.authService.authenticate(reqMsg.token);
-      const authorized = await this.authService.authorize(account);
+      const authorized = await this.authService.authorize(
+        account,
+        reqMsg.roles
+      );
 
       return {
         valid: authorized,

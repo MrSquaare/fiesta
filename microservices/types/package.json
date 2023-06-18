@@ -22,7 +22,7 @@
     "typeorm": "^0.3.16"
   },
   "devDependencies": {
-    "@common/types": "*",
+    "@common/types": "^1.0.0",
     "@nestjs/cli": "^10.0.2",
     "@nestjs/schematics": "^10.0.1",
     "@types/node": "^20.3.1",

@@ -1,5 +1,8 @@
-import { AccountDTO } from "@common/types";
-import { CurrentAccount } from "@microservices/common/dist/decorators/account";
+import { AccountDTO, AccountRole } from "@common/types";
+import {
+  RolesMeta,
+  CurrentAccount,
+} from "@microservices/common/dist/decorators/account";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { User } from "@microservices/types/dist/user";
 import { UseGuards } from "@nestjs/common";
@@ -22,36 +25,36 @@ import { UsersService } from "./users.service";
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => User)
   createUser(@Args("createUserInput") createUserInput: CreateUserInput) {
     return this.usersService.create(createUserInput);
   }
 
-  @UseGuards(AuthBridgeGuard)
   @Query(() => [User], { name: "users" })
   findAll() {
     return this.usersService.findAll();
   }
 
-  @UseGuards(AuthBridgeGuard)
   @Query(() => User, { name: "user" })
   findOne(@Args("id", { type: () => ID }) id: string) {
     return this.usersService.findOne(id);
   }
 
-  @UseGuards(AuthBridgeGuard)
   @Query(() => User, { name: "userByUsername" })
   findOneByUsername(@Args("username") username: string) {
     return this.usersService.findOneByUsername(username);
   }
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => User)
   updateUser(@Args("updateUserInput") updateUserInput: UpdateUserInput) {
     return this.usersService.update(updateUserInput);
   }
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => User)
   removeUser(@Args("id", { type: () => ID }) id: string) {
@@ -90,7 +93,7 @@ export class UsersResolver {
 
   @UseGuards(AuthBridgeGuard)
   @ResolveReference()
-  resolveReferences(reference: { __typename: "[User]"; ids: [string] }) {
+  resolveReferences(reference: { __typename: "[User]"; ids: string[] }) {
     return this.usersService.findAllByIds(reference.ids);
   }
 }

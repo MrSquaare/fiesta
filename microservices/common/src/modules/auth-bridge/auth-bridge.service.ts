@@ -1,3 +1,4 @@
+import { AccountRole } from "@common/types";
 import {
   AuthCheckReqMessage,
   AuthCheckResMessage,
@@ -15,8 +16,8 @@ export class AuthBridgeService {
     private readonly authClient: ClientProxy
   ) {}
 
-  async checkAuth(token: string) {
-    const reqMsg: AuthCheckReqMessage = { token };
+  async checkAuth(token: string, roles?: AccountRole[]) {
+    const reqMsg: AuthCheckReqMessage = { token, roles };
     const resMsg: AuthCheckResMessage = await firstValueFrom(
       this.authClient.send(AUTH_BRIDGE_CHECK, reqMsg).pipe(timeout(5000))
     );

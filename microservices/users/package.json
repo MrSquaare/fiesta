@@ -16,7 +16,6 @@
     "fclean": "pnpm run clean && rimraf node_modules/ *.db* *.sqlite*"
   },
   "dependencies": {
-    "@common/types": "*",
     "@apollo/federation": "^0.38.1",
     "@apollo/gateway": "^2.4.8",
     "@apollo/server": "^4.7.4",
@@ -41,6 +40,7 @@
     "typeorm": "^0.3.16"
   },
   "devDependencies": {
+    "@common/types": "^1.0.0",
     "@nestjs/cli": "^10.0.2",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.0",

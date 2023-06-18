@@ -1,3 +1,4 @@
+import { AccountRole } from "@common/types";
 import {
   Injectable,
   CanActivate,
@@ -6,6 +7,7 @@ import {
   ForbiddenException,
   Inject,
 } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
 import { GqlExecutionContext } from "@nestjs/graphql";
 
 import { AuthBridgeService } from "./auth-bridge.service";
@@ -13,6 +15,7 @@ import { AuthBridgeService } from "./auth-bridge.service";
 @Injectable()
 export class AuthBridgeGuard implements CanActivate {
   constructor(
+    private reflector: Reflector,
     @Inject(AuthBridgeService)
     private readonly authBridgeService: AuthBridgeService
   ) {}
@@ -26,6 +29,8 @@ export class AuthBridgeGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = this.getRequest(context);
     const authorization = request.headers.authorization;
+    const handler = context.getHandler();
+    const roles = this.reflector.get<AccountRole[]>("roles", handler);
 
     if (!authorization) {
       throw new BadRequestException("No authorization provided");
@@ -41,7 +46,7 @@ export class AuthBridgeGuard implements CanActivate {
       throw new BadRequestException("Invalid authorization type");
     }
 
-    const account = await this.authBridgeService.checkAuth(token);
+    const account = await this.authBridgeService.checkAuth(token, roles);
 
     if (!account) {
       throw new ForbiddenException("Unauthorized");

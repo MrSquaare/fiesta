@@ -1,7 +1,17 @@
+import { AccountRole } from "@common/types";
+import { RolesMeta } from "@microservices/common/dist/decorators/account";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { Timeline } from "@microservices/types/dist/timeline";
 import { UseGuards } from "@nestjs/common";
-import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ID,
+  ResolveField,
+  Parent,
+} from "@nestjs/graphql";
 
 import { CreateTimelineInput } from "./dto/create-timeline.input";
 import { UpdateTimelineInput } from "./dto/update-timeline.input";
@@ -11,6 +21,7 @@ import { TimelinesService } from "./timelines.service";
 export class TimelinesResolver {
   constructor(private readonly timelinesService: TimelinesService) {}
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Timeline)
   createTimeline(
@@ -19,18 +30,17 @@ export class TimelinesResolver {
     return this.timelinesService.create(createTimelineInput);
   }
 
-  @UseGuards(AuthBridgeGuard)
   @Query(() => [Timeline], { name: "timelines" })
   findAll() {
     return this.timelinesService.findAll();
   }
 
-  @UseGuards(AuthBridgeGuard)
   @Query(() => Timeline, { name: "timeline" })
   findOne(@Args("id", { type: () => ID }) id: string) {
     return this.timelinesService.findOne(id);
   }
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Timeline)
   updateTimeline(
@@ -39,9 +49,15 @@ export class TimelinesResolver {
     return this.timelinesService.update(updateTimelineInput);
   }
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Timeline)
   removeTimeline(@Args("id", { type: () => ID }) id: string) {
     return this.timelinesService.remove(id);
+  }
+
+  @ResolveField(() => Timeline)
+  posts(@Parent() timeline: Timeline) {
+    return { __typename: "[Post]", ids: timeline.post_ids };
   }
 }

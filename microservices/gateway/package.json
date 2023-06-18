@@ -31,6 +31,7 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@common/types": "workspace:*",
     "@nestjs/cli": "^10.0.2",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.0",

@@ -104,9 +104,6 @@ importers:
       '@graphql-codegen/typescript-react-apollo':
         specifier: 3.3.7
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.6.0)
-      '@microservices/gateway':
-        specifier: '*'
-        version: link:../../microservices/gateway
       graphql:
         specifier: ^16.6.0
         version: 16.6.0
@@ -188,6 +185,9 @@ importers:
         specifier: ^0.3.16
         version: 0.3.16(better-sqlite3@8.4.0)(ioredis@5.3.2)(pg@8.11.0)(ts-node@10.9.1)
     devDependencies:
+      '@common/types':
+        specifier: workspace:*
+        version: link:../../common/types
       '@nestjs/cli':
         specifier: ^10.0.2
         version: 10.0.2
@@ -309,6 +309,9 @@ importers:
         specifier: ^0.3.16
         version: 0.3.16(better-sqlite3@8.4.0)(ioredis@5.3.2)(pg@8.11.0)(ts-node@10.9.1)
     devDependencies:
+      '@common/types':
+        specifier: workspace:*
+        version: link:../../common/types
       '@nestjs/cli':
         specifier: ^10.0.2
         version: 10.0.2
@@ -363,6 +366,9 @@ importers:
       '@nestjs/common':
         specifier: ^10.0.0
         version: 10.0.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      '@nestjs/core':
+        specifier: ^10.0.0
+        version: 10.0.0(@nestjs/common@10.0.0)(@nestjs/microservices@10.0.0)(@nestjs/platform-express@10.0.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       '@nestjs/graphql':
         specifier: ^12.0.1
         version: 12.0.1(@apollo/subgraph@2.4.8)(@nestjs/common@10.0.0)(@nestjs/core@10.0.0)(graphql@16.6.0)(reflect-metadata@0.1.13)
@@ -380,7 +386,7 @@ importers:
         version: 7.8.1
     devDependencies:
       '@common/types':
-        specifier: '*'
+        specifier: ^1.0.0
         version: link:../../common/types
       '@nestjs/cli':
         specifier: ^10.0.2
@@ -461,6 +467,9 @@ importers:
         specifier: ^0.3.16
         version: 0.3.16(better-sqlite3@8.4.0)(ioredis@5.3.2)(pg@8.11.0)(ts-node@10.9.1)
     devDependencies:
+      '@common/types':
+        specifier: workspace:*
+        version: link:../../common/types
       '@nestjs/cli':
         specifier: ^10.0.2
         version: 10.0.2
@@ -543,6 +552,9 @@ importers:
         specifier: ^7.8.1
         version: 7.8.1
     devDependencies:
+      '@common/types':
+        specifier: workspace:*
+        version: link:../../common/types
       '@nestjs/cli':
         specifier: ^10.0.2
         version: 10.0.2
@@ -649,6 +661,9 @@ importers:
         specifier: ^0.3.16
         version: 0.3.16(better-sqlite3@8.4.0)(ioredis@5.3.2)(pg@8.11.0)(ts-node@10.9.1)
     devDependencies:
+      '@common/types':
+        specifier: workspace:*
+        version: link:../../common/types
       '@nestjs/cli':
         specifier: ^10.0.2
         version: 10.0.2
@@ -749,6 +764,9 @@ importers:
         specifier: ^0.3.16
         version: 0.3.16(better-sqlite3@8.4.0)(ioredis@5.3.2)(pg@8.11.0)(ts-node@10.9.1)
     devDependencies:
+      '@common/types':
+        specifier: workspace:*
+        version: link:../../common/types
       '@nestjs/cli':
         specifier: ^10.0.2
         version: 10.0.2
@@ -817,7 +835,7 @@ importers:
         version: 0.3.16(better-sqlite3@8.4.0)(ioredis@5.3.2)(pg@8.11.0)(ts-node@10.9.1)
     devDependencies:
       '@common/types':
-        specifier: '*'
+        specifier: ^1.0.0
         version: link:../../common/types
       '@nestjs/cli':
         specifier: ^10.0.2
@@ -852,9 +870,6 @@ importers:
       '@apollo/subgraph':
         specifier: ^2.4.8
         version: 2.4.8(graphql@16.6.0)
-      '@common/types':
-        specifier: '*'
-        version: link:../../common/types
       '@microservices/common':
         specifier: '*'
         version: link:../common
@@ -910,6 +925,9 @@ importers:
         specifier: ^0.3.16
         version: 0.3.16(better-sqlite3@8.4.0)(ioredis@5.3.2)(pg@8.11.0)(ts-node@10.9.1)
     devDependencies:
+      '@common/types':
+        specifier: ^1.0.0
+        version: link:../../common/types
       '@nestjs/cli':
         specifier: ^10.0.2
         version: 10.0.2

@@ -1,3 +1,5 @@
+import { AccountRole } from "@common/types";
+import { RolesMeta } from "@microservices/common/dist/decorators/account";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { Follower } from "@microservices/types/dist/follower";
 import { User } from "@microservices/types/dist/user";
@@ -20,6 +22,7 @@ import { FollowersService } from "./followers.service";
 export class FollowersResolver {
   constructor(private readonly followersService: FollowersService) {}
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Follower)
   createFollower(
@@ -28,18 +31,17 @@ export class FollowersResolver {
     return this.followersService.create(createFollowerInput);
   }
 
-  @UseGuards(AuthBridgeGuard)
   @Query(() => [Follower], { name: "followers" })
   findFollowers(@Args("id", { type: () => ID }) id: string) {
     return this.followersService.findFollowers(id);
   }
 
-  @UseGuards(AuthBridgeGuard)
   @Query(() => [Follower], { name: "following" })
   findFollowing(@Args("id", { type: () => ID }) id: string) {
     return this.followersService.findFollowing(id);
   }
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Follower)
   removeFollower(

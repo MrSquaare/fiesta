@@ -2,7 +2,7 @@ import { UserBridgeService } from "@microservices/common/dist/modules/user-bridg
 import { Post } from "@microservices/types/dist/post";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 
 import { CreatePostInput } from "./dto/create-post.input";
 import { UpdatePostInput } from "./dto/update-post.input";
@@ -25,6 +25,12 @@ export class PostsService {
 
   async findAll(): Promise<Post[]> {
     const posts = await this.postsRepository.find();
+
+    return posts;
+  }
+
+  async findAllByIds(ids: string[]): Promise<Post[]> {
+    const posts = await this.postsRepository.find({ where: { id: In(ids) } });
 
     return posts;
   }

@@ -1,3 +1,5 @@
+import { AccountRole } from "@common/types";
+import { RolesMeta } from "@microservices/common/dist/decorators/account";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { Account } from "@microservices/types/dist/account";
 import { UseGuards } from "@nestjs/common";
@@ -11,6 +13,7 @@ import { UpdateAccountInput } from "./dto/update-account.input";
 export class AccountsResolver {
   constructor(private readonly accountsService: AccountsService) {}
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Account)
   createAccount(
@@ -25,12 +28,14 @@ export class AccountsResolver {
     return this.accountsService.findAll();
   }
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Query(() => Account, { name: "account" })
   findOne(@Args("id", { type: () => ID }) id: string) {
     return this.accountsService.findOne(id);
   }
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Account)
   updateAccount(
@@ -39,6 +44,7 @@ export class AccountsResolver {
     return this.accountsService.update(updateAccountInput);
   }
 
+  @RolesMeta(AccountRole.ADMIN)
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Account)
   removeAccount(@Args("id", { type: () => ID }) id: string) {

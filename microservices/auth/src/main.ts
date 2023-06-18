@@ -20,6 +20,7 @@ async function bootstrap() {
 
   const port = parseInt(process.env.PORT) || 3002;
 
+  await app.startAllMicroservices();
   await app.listen(port);
 
   Logger.log(`🚀 Auth service is running on: http://localhost:${port}/graphql`);

@@ -1,5 +1,8 @@
 import { USER_BRIDGE_CHECK } from "@microservices/common/dist/modules/user-bridge";
-import { UserCheckReqMessage, UserCheckResMessage } from "@microservices/types/dist/user-bridge";
+import {
+  UserCheckReqMessage,
+  UserCheckResMessage,
+} from "@microservices/types/dist/user-bridge";
 import { Controller } from "@nestjs/common";
 import { MessagePattern, Payload } from "@nestjs/microservices";
 

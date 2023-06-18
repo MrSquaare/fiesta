@@ -3,7 +3,6 @@
   "name": "@microservices/types",
   "version": "0.0.1",
   "scripts": {
-    "preinstall": "npx -y only-allow pnpm",
     "dev": "nest build --watch",
     "prebuild": "rimraf dist/",
     "build": "nest build",
@@ -15,7 +14,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
-    "@nestjs/graphql": "^11.0.6",
+    "@nestjs/graphql": "^12.0.1",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
@@ -23,7 +22,8 @@
     "typeorm": "^0.3.16"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.0.1",
+    "@common/types": "*",
+    "@nestjs/cli": "^10.0.2",
     "@nestjs/schematics": "^10.0.1",
     "@types/node": "^20.3.1",
     "jest": "^29.5.0",

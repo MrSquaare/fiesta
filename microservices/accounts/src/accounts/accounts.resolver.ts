@@ -36,10 +36,7 @@ export class AccountsResolver {
   updateAccount(
     @Args("updateAccountInput") updateAccountInput: UpdateAccountInput
   ) {
-    return this.accountsService.update(
-      updateAccountInput.id,
-      updateAccountInput
-    );
+    return this.accountsService.update(updateAccountInput);
   }
 
   @UseGuards(AuthBridgeGuard)

@@ -1,3 +1,5 @@
+import { AccountDTO } from "@common/types";
+import { CurrentAccount } from "@microservices/common/dist/decorators/account";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { User } from "@microservices/types/dist/user";
 import { UseGuards } from "@nestjs/common";
@@ -10,7 +12,9 @@ import {
   ResolveReference,
 } from "@nestjs/graphql";
 
+import { CreateMyUserInput } from "./dto/create-my-user.input";
 import { CreateUserInput } from "./dto/create-user.input";
+import { UpdateMyUserInput } from "./dto/update-my-user.input";
 import { UpdateUserInput } from "./dto/update-user.input";
 import { UsersService } from "./users.service";
 
@@ -37,9 +41,15 @@ export class UsersResolver {
   }
 
   @UseGuards(AuthBridgeGuard)
+  @Query(() => User, { name: "userByUsername" })
+  findOneByUsername(@Args("username") username: string) {
+    return this.usersService.findOneByUsername(username);
+  }
+
+  @UseGuards(AuthBridgeGuard)
   @Mutation(() => User)
   updateUser(@Args("updateUserInput") updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
+    return this.usersService.update(updateUserInput);
   }
 
   @UseGuards(AuthBridgeGuard)
@@ -49,8 +59,38 @@ export class UsersResolver {
   }
 
   @UseGuards(AuthBridgeGuard)
+  @Mutation(() => User)
+  createMyUser(
+    @Args("createMyUserInput") createMyUserInput: CreateMyUserInput,
+    @CurrentAccount() account: AccountDTO
+  ) {
+    return this.usersService.createMyUser(createMyUserInput, account);
+  }
+
+  @UseGuards(AuthBridgeGuard)
+  @Mutation(() => User)
+  updateMyUser(
+    @Args("updateMyUserInput") updateMyUserInput: UpdateMyUserInput,
+    @CurrentAccount() account: AccountDTO
+  ) {
+    return this.usersService.updateMyUser(updateMyUserInput, account);
+  }
+
+  @UseGuards(AuthBridgeGuard)
+  @Query(() => User, { name: "myUser" })
+  findMyUser(@CurrentAccount() account: AccountDTO) {
+    return this.usersService.findMyUser(account);
+  }
+
+  @UseGuards(AuthBridgeGuard)
   @ResolveReference()
   resolveReference(reference: { __typename: "User"; id: string }) {
     return this.usersService.findOne(reference.id);
+  }
+
+  @UseGuards(AuthBridgeGuard)
+  @ResolveReference()
+  resolveReferences(reference: { __typename: "[User]"; ids: [string] }) {
+    return this.usersService.findAllByIds(reference.ids);
   }
 }

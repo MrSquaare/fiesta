@@ -41,14 +41,13 @@ export class AccountsService {
     return account;
   }
 
-  async update(id: string, updateAccountInput: UpdateAccountInput) {
-    const account = await this.accountsRepository.preload({
-      id: id,
-      ...updateAccountInput,
-    });
+  async update(updateAccountInput: UpdateAccountInput) {
+    const account = await this.accountsRepository.preload(updateAccountInput);
 
     if (!account) {
-      throw new NotFoundException(`Account #${id} not found`);
+      throw new NotFoundException(
+        `Account #${updateAccountInput.id} not found`
+      );
     }
 
     return this.accountsRepository.save(account);

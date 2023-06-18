@@ -1,4 +1,7 @@
-import { UserCheckReqMessage, UserCheckResMessage } from "@microservices/types/dist/user-bridge";
+import {
+  UserCheckReqMessage,
+  UserCheckResMessage,
+} from "@microservices/types/dist/user-bridge";
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { firstValueFrom, timeout } from "rxjs";

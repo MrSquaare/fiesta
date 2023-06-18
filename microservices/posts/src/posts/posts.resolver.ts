@@ -41,7 +41,7 @@ export class PostsResolver {
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Post)
   updatePost(@Args("updatePostInput") updatePostInput: UpdatePostInput) {
-    return this.postsService.update(updatePostInput.id, updatePostInput);
+    return this.postsService.update(updatePostInput);
   }
 
   @UseGuards(AuthBridgeGuard)

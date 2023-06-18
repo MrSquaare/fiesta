@@ -5,24 +5,21 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "preinstall": "npx -y only-allow pnpm",
-    "start:microservices": "pnpm -w @microservices/gateway run start:microservices",
     "wait:microservices": "wait-on tcp:3000",
     "wait:dev": "pnpm run wait:microservices && npm-run-all -p -r dev:**",
     "wait:build": "pnpm run wait:microservices && npm-run-all -s build:**",
     "dev:codegen": "graphql-codegen --watch",
-    "dev:ts": "tsc -w",
+    "dev:ts": "tsc --watch --preserveWatchOutput",
     "dev": "pnpm run wait:dev",
     "build:codegen": "graphql-codegen",
     "build:ts": "tsc",
-    "build": "npm-run-all -p -r start:microservices wait:build",
+    "build": "pnpm run wait:build",
     "lint": "eslint src/",
     "format": "eslint src/ --fix",
     "clean": "rimraf dist/ src/generated/",
     "fclean": "rimraf node_modules/"
   },
   "devDependencies": {
-    "@microservices/gateway": "*",
     "@apollo/client": "^3.7.15",
     "@graphql-codegen/cli": "4.0.1",
     "@graphql-codegen/import-types-preset": "^2.2.6",
@@ -30,6 +27,7 @@
     "@graphql-codegen/typescript-operations": "4.0.0",
     "@graphql-codegen/typescript-react-apollo": "3.3.7",
     "graphql": "^16.6.0",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "wait-on": "^7.0.1"
   }
 }

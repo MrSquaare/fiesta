@@ -8,7 +8,7 @@ import {
 
 @InputType()
 export class CreateUserInput extends IntersectionType(
-  PickType(User, ["username", "display_name"]),
+  PickType(User, ["account_id", "username", "display_name"]),
   PartialType(PickType(User, ["biography"])),
   InputType
 ) {}

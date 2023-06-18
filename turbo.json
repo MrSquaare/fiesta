@@ -15,10 +15,6 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "build:desktop": {
-      "dependsOn": [],
-      "outputs": ["dist/**", "src-tauri/target/**"]
-    },
     "build:android": {
       "dependsOn": [],
       "outputs": ["dist/**", "android/app/build/**"]

@@ -1,5 +1,8 @@
 import { AUTH_BRIDGE_CHECK } from "@microservices/common/dist/modules/auth-bridge";
-import { AuthCheckReqMessage, AuthCheckResMessage } from "@microservices/types/dist/auth-bridge";
+import {
+  AuthCheckReqMessage,
+  AuthCheckResMessage,
+} from "@microservices/types/dist/auth-bridge";
 import { Controller } from "@nestjs/common";
 import { MessagePattern, Payload } from "@nestjs/microservices";
 
@@ -15,7 +18,7 @@ export class AuthController {
   ): Promise<AuthCheckResMessage> {
     try {
       const account = await this.authService.authenticate(reqMsg.token);
-      const authorized = await this.authService.authorize(account, []);
+      const authorized = await this.authService.authorize(account);
 
       return {
         valid: authorized,

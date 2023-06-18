@@ -2,7 +2,14 @@ import { InlineIcon } from "@iconify/react";
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 
+import { useAppStore } from "../../stores/app";
+import { getUserAvatar } from "../../utilities/user";
+
 export const TopBar: FC = () => {
+  const currentUser = useAppStore((state) => state.currentUser);
+
+  if (!currentUser) return null;
+
   return (
     <div
       className={
@@ -12,7 +19,7 @@ export const TopBar: FC = () => {
       <NavLink className={"p-1"} to={"/profile"}>
         <img
           className={"h-8 w-8 rounded-full"}
-          src={"https://i.pravatar.cc/300"}
+          src={getUserAvatar(currentUser)}
         />
       </NavLink>
       <NavLink className={"p-1"} to={"/search"}>

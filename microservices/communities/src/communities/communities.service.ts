@@ -1,29 +1,75 @@
-import { Injectable } from "@nestjs/common";
+import { Community } from "@microservices/types/dist/community";
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
 import { CreateCommunityInput } from "./dto/create-community.input";
 import { UpdateCommunityInput } from "./dto/update-community.input";
 
-// TODO: Complete this service
-
 @Injectable()
 export class CommunitiesService {
-  create(createCommunityInput: CreateCommunityInput) {
-    return "This action adds a new community";
+  constructor(
+    @InjectRepository(Community)
+    private readonly CommunitiesRepository: Repository<Community>
+  ) {}
+
+  async create(createCommunityInput: CreateCommunityInput): Promise<Community> {
+    const Community = this.CommunitiesRepository.create(createCommunityInput);
+
+    return await this.CommunitiesRepository.save(Community);
   }
 
-  findAll() {
-    return `This action returns all communities`;
+  async findAll(): Promise<Community[]> {
+    const Communities = await this.CommunitiesRepository.find();
+
+    return Communities;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} community`;
+  async exists(id: string): Promise<boolean> {
+    const Community = await this.CommunitiesRepository.findOne({
+      where: { id },
+    });
+
+    return !!Community;
   }
 
-  update(id: number, updateCommunityInput: UpdateCommunityInput) {
-    return `This action updates a #${id} community`;
+  async findOne(id: string): Promise<Community> {
+    const Community = await this.CommunitiesRepository.findOne({
+      where: { id },
+    });
+
+    if (!Community) {
+      throw new NotFoundException(`Community #${id} not found`);
+    }
+
+    return Community;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} community`;
+  async update(updateCommunityInput: UpdateCommunityInput) {
+    const Community = await this.CommunitiesRepository.preload(
+      updateCommunityInput
+    );
+
+    if (!Community) {
+      throw new NotFoundException(
+        `Community #${updateCommunityInput.id} not found`
+      );
+    }
+
+    return this.CommunitiesRepository.save(Community);
+  }
+
+  async remove(id: string) {
+    const Community = await this.CommunitiesRepository.findOne({
+      where: { id },
+    });
+
+    if (!Community) {
+      throw new NotFoundException(`Community #${id} not found`);
+    }
+
+    await this.CommunitiesRepository.remove(Community);
+
+    return Community;
   }
 }

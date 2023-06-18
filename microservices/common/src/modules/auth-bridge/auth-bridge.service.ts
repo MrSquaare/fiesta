@@ -1,4 +1,7 @@
-import { AuthCheckReqMessage, AuthCheckResMessage } from "@microservices/types/dist/auth-bridge";
+import {
+  AuthCheckReqMessage,
+  AuthCheckResMessage,
+} from "@microservices/types/dist/auth-bridge";
 import { ForbiddenException, Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { firstValueFrom, timeout } from "rxjs";

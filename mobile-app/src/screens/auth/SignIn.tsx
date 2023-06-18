@@ -76,7 +76,7 @@ export const SignIn: FC = () => {
       {error ? (
         <div
           className={
-            "my-4 w-full rounded-lg bg-red-200 p-4 text-sm text-red-800"
+            "my-4 flex w-full rounded-lg border border-red-800 bg-gray-800 p-4 text-sm text-red-400"
           }
           role={"alert"}
         >

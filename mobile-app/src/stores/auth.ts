@@ -1,5 +1,5 @@
 import { SecureStoragePlugin } from "capacitor-secure-storage-plugin";
-import create from "zustand";
+import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 const storageKey = "token";

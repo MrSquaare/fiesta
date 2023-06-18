@@ -1,2 +1,1 @@
-export * from "./dto/auth.dto";
-export * from "./entities/auth.entity";
+export * from "./auth.entity";

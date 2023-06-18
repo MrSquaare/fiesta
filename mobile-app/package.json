@@ -3,7 +3,6 @@
   "name": "mobile-app",
   "version": "1.1.1",
   "scripts": {
-    "preinstall": "npx -y only-allow pnpm",
     "--prepare--": "ts-node ./trapeze.config.ts",
     "wait:vite": "wait-on tcp:1421",
     "wait:dev:android": "pnpm run wait:vite && pnpm run run:android",
@@ -32,7 +31,7 @@
     "@capacitor/cli": "^5.0.5",
     "@capacitor/core": "^5.0.5",
     "@capacitor/ios": "^5.0.5",
-    "@common/graphql": "workspace:^",
+    "@common/graphql": "*",
     "@hookform/resolvers": "^3.1.1",
     "@iconify/icons-twemoji": "^1.2.8",
     "@iconify/react": "^4.1.0",
@@ -50,6 +49,7 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
+    "@common/types": "*",
     "@trapezedev/project": "^7.0.10",
     "@types/react": "^18.2.12",
     "@types/react-dom": "^18.2.5",

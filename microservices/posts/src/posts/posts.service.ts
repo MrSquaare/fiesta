@@ -39,18 +39,15 @@ export class PostsService {
     return post;
   }
 
-  async update(id: string, updatePostInput: UpdatePostInput) {
+  async update(updatePostInput: UpdatePostInput) {
     if (updatePostInput.author_id) {
       await this.userBridgeService.checkUser(updatePostInput.author_id);
     }
 
-    const post = await this.postsRepository.preload({
-      id: id,
-      ...updatePostInput,
-    });
+    const post = await this.postsRepository.preload(updatePostInput);
 
     if (!post) {
-      throw new NotFoundException(`Post #${id} not found`);
+      throw new NotFoundException(`Post #${updatePostInput.id} not found`);
     }
 
     return this.postsRepository.save(post);

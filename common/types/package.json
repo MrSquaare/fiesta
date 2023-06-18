@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@common/types",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch --preserveWatchOutput",
+    "build": "tsc",
+    "lint": "eslint src/",
+    "format": "eslint src/ --fix",
+    "clean": "rimraf dist/ src/generated/",
+    "fclean": "rimraf node_modules/"
+  }
+}

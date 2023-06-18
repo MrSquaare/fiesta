@@ -1,6 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import { ValidationError } from "class-validator";
-import { FieldErrors, FieldError } from "react-hook-form";
+import { FieldErrors } from "react-hook-form";
 
 import { FormErrors } from "../types";
 
@@ -13,7 +13,10 @@ export const convertCVToFormErrors = <T extends object>(
     const property = error.property as keyof T;
     const constraints = error.constraints;
 
-    formErrors[property] = constraints ? Object.values(constraints) : undefined;
+    // TODO: Nested errors support
+    formErrors[property] = constraints
+      ? (Object.values(constraints) as any)
+      : undefined;
   }
 
   return formErrors;
@@ -23,14 +26,14 @@ export const convertApolloToFormErrors = <T extends object>(
   error: ApolloError | undefined
 ): FormErrors<T> | undefined => {
   const graphQLError = error?.graphQLErrors.find(
-    (error) => error.extensions.code === "BAD_USER_INPUT"
+    (error) => error.extensions.code === "BAD_REQUEST"
   );
 
   if (!graphQLError) return;
 
   const extensions = graphQLError.extensions as any;
 
-  return convertCVToFormErrors<T>(extensions.response.message);
+  return convertCVToFormErrors<T>(extensions.originalError.message);
 };
 
 export const convertRHFToFormErrors = <T extends object>(
@@ -43,9 +46,10 @@ export const convertRHFToFormErrors = <T extends object>(
 
   for (const fieldError of fieldErrors) {
     const key = fieldError[0] as keyof T;
-    const content = fieldError[1] as FieldError;
+    const content = fieldError[1];
 
-    formErrors[key] = content.message ? [content.message] : undefined;
+    // TODO: Nested errors support
+    formErrors[key] = content.message ? ([content.message] as any) : undefined;
   }
 
   return formErrors;

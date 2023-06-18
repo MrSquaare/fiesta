@@ -24,6 +24,7 @@ export class AuthService {
   async signIn(signInInput: SignInInput) {
     const account = await this.accountsRepository.findOne({
       where: { email: signInInput.email },
+      select: ["id", "password"],
     });
 
     if (!account) {
@@ -70,8 +71,9 @@ export class AuthService {
     }
   }
 
-  async authorize(account: Account, roles: number[]) {
-    const authorized = roles.some((role) => account.roles.includes(role));
+  async authorize(account: Account, roles?: number[]) {
+    const authorized =
+      !roles?.length || roles.some((role) => account.roles.includes(role));
 
     if (!authorized) {
       throw new ForbiddenException("Unauthorized");

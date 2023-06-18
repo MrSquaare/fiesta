@@ -4,6 +4,7 @@ import {
   CurrentAccount,
 } from "@microservices/common/dist/decorators/account";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
+import { Timeline } from "@microservices/types/dist/timeline";
 import { User } from "@microservices/types/dist/user";
 import { UseGuards } from "@nestjs/common";
 import {
@@ -13,6 +14,8 @@ import {
   Args,
   ID,
   ResolveReference,
+  ResolveField,
+  Parent,
 } from "@nestjs/graphql";
 
 import { CreateMyUserInput } from "./dto/create-my-user.input";
@@ -85,13 +88,21 @@ export class UsersResolver {
     return this.usersService.findMyUser(account);
   }
 
-  @UseGuards(AuthBridgeGuard)
+  @ResolveField(() => Timeline)
+  for_you_timeline(@Parent() user: User) {
+    return { __typename: "Timeline", id: user.for_you_timeline_id };
+  }
+
+  @ResolveField(() => Timeline)
+  following_timeline(@Parent() user: User) {
+    return { __typename: "Timeline", id: user.following_timeline_id };
+  }
+
   @ResolveReference()
   resolveReference(reference: { __typename: "User"; id: string }) {
     return this.usersService.findOne(reference.id);
   }
 
-  @UseGuards(AuthBridgeGuard)
   @ResolveReference()
   resolveReferences(reference: { __typename: "[User]"; ids: string[] }) {
     return this.usersService.findAllByIds(reference.ids);

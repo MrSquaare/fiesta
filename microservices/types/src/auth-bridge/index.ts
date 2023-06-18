@@ -1,1 +1,1 @@
-export * from "./message.dto";
+export * from "./check-auth.dto";

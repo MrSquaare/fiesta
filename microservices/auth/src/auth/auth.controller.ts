@@ -1,9 +1,9 @@
-import { AUTH_BRIDGE_CHECK } from "@microservices/common/dist/modules/auth-bridge";
+import { AUTH_BRIDGE_CHECK_AUTH } from "@microservices/common/dist/modules/auth-bridge";
 import {
-  AuthCheckReqMessage,
-  AuthCheckResMessage,
+  CheckAuthReqMessage,
+  CheckAuthResMessage,
 } from "@microservices/types/dist/auth-bridge";
-import { Controller } from "@nestjs/common";
+import { Controller, UnauthorizedException } from "@nestjs/common";
 import { MessagePattern, Payload } from "@nestjs/microservices";
 
 import { AuthService } from "./auth.service";
@@ -12,10 +12,10 @@ import { AuthService } from "./auth.service";
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @MessagePattern(AUTH_BRIDGE_CHECK)
+  @MessagePattern(AUTH_BRIDGE_CHECK_AUTH)
   async authCheck(
-    @Payload() reqMsg: AuthCheckReqMessage
-  ): Promise<AuthCheckResMessage> {
+    @Payload() reqMsg: CheckAuthReqMessage
+  ): Promise<CheckAuthResMessage> {
     try {
       const account = await this.authService.authenticate(reqMsg.token);
       const authorized = await this.authService.authorize(
@@ -23,13 +23,15 @@ export class AuthController {
         reqMsg.roles
       );
 
+      if (!authorized) {
+        throw new UnauthorizedException("Unauthorized");
+      }
+
       return {
-        valid: authorized,
         account,
       };
     } catch (error) {
       return {
-        valid: false,
         error,
       };
     }

@@ -1,11 +1,10 @@
 import { UserDTO } from "@common/types";
 
-export type UserCheckReqMessage = {
+export type CheckUserReqMessage = {
   id: string;
 };
 
-export type UserCheckResMessage = {
-  valid: boolean;
+export type CheckUserResMessage = {
   user?: UserDTO;
   error?: any;
 };

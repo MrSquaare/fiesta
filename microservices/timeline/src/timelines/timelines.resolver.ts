@@ -1,6 +1,7 @@
 import { AccountRole } from "@common/types";
 import { RolesMeta } from "@microservices/common/dist/decorators/account";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
+import { Post } from "@microservices/types/dist/post";
 import { Timeline } from "@microservices/types/dist/timeline";
 import { UseGuards } from "@nestjs/common";
 import {
@@ -11,6 +12,7 @@ import {
   ID,
   ResolveField,
   Parent,
+  ResolveReference,
 } from "@nestjs/graphql";
 
 import { CreateTimelineInput } from "./dto/create-timeline.input";
@@ -56,8 +58,13 @@ export class TimelinesResolver {
     return this.timelinesService.remove(id);
   }
 
-  @ResolveField(() => Timeline)
+  @ResolveField(() => Post)
   posts(@Parent() timeline: Timeline) {
     return { __typename: "[Post]", ids: timeline.post_ids };
+  }
+
+  @ResolveReference()
+  resolveReference(reference: { __typename: "Timeline"; id: string }) {
+    return this.timelinesService.findOne(reference.id);
   }
 }

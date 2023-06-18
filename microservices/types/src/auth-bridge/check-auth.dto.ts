@@ -1,12 +1,11 @@
 import { AccountDTO, AccountRole } from "@common/types";
 
-export type AuthCheckReqMessage = {
+export type CheckAuthReqMessage = {
   token: string;
   roles?: AccountRole[];
 };
 
-export type AuthCheckResMessage = {
-  valid: boolean;
+export type CheckAuthResMessage = {
   account?: AccountDTO;
   error?: any;
 };

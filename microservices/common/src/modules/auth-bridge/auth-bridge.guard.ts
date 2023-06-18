@@ -4,7 +4,6 @@ import {
   CanActivate,
   ExecutionContext,
   BadRequestException,
-  ForbiddenException,
   Inject,
 } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
@@ -47,10 +46,6 @@ export class AuthBridgeGuard implements CanActivate {
     }
 
     const account = await this.authBridgeService.checkAuth(token, roles);
-
-    if (!account) {
-      throw new ForbiddenException("Unauthorized");
-    }
 
     request.account = account;
 

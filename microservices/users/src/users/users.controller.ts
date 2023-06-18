@@ -1,7 +1,12 @@
-import { USER_BRIDGE_CHECK } from "@microservices/common/dist/modules/user-bridge";
 import {
-  UserCheckReqMessage,
-  UserCheckResMessage,
+  USER_BRIDGE_CHECK_USER,
+  USER_BRIDGE_GET_ACCOUNT_USER,
+} from "@microservices/common/dist/modules/user-bridge";
+import {
+  CheckUserReqMessage,
+  CheckUserResMessage,
+  GetAccountUserReqMessage,
+  GetAccountUserResMessage,
 } from "@microservices/types/dist/user-bridge";
 import { Controller } from "@nestjs/common";
 import { MessagePattern, Payload } from "@nestjs/microservices";
@@ -12,20 +17,37 @@ import { UsersService } from "./users.service";
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @MessagePattern(USER_BRIDGE_CHECK)
-  async userCheck(
-    @Payload() payload: UserCheckReqMessage
-  ): Promise<UserCheckResMessage> {
+  @MessagePattern(USER_BRIDGE_CHECK_USER)
+  async checkUser(
+    @Payload() payload: CheckUserReqMessage
+  ): Promise<CheckUserResMessage> {
     try {
       const user = await this.usersService.findOne(payload.id);
 
       return {
-        valid: !!user,
         user,
       };
     } catch (error) {
       return {
-        valid: false,
+        error,
+      };
+    }
+  }
+
+  @MessagePattern(USER_BRIDGE_GET_ACCOUNT_USER)
+  async userCheck(
+    @Payload() payload: GetAccountUserReqMessage
+  ): Promise<GetAccountUserResMessage> {
+    try {
+      const user = await this.usersService.findOneByAccountId(
+        payload.accountId
+      );
+
+      return {
+        user,
+      };
+    } catch (error) {
+      return {
         error,
       };
     }

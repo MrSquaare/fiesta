@@ -1,10 +1,11 @@
-import { UserDTO } from "@common/types";
+import { TimelineDTO, UserDTO } from "@common/types";
 import { ObjectType, Field, Int, Directive, ID } from "@nestjs/graphql";
 import { IsNumber, IsString, IsUUID } from "class-validator";
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
 import { Account } from "../account";
 import { BaseEntity } from "../base";
+import { Timeline } from "../timeline";
 
 @Entity()
 @ObjectType()
@@ -43,4 +44,20 @@ export class User extends BaseEntity implements UserDTO {
   @Field(() => Int)
   @IsNumber()
   following_count: number;
+
+  @Column({ type: "uuid" })
+  @Field(() => ID)
+  @IsUUID()
+  for_you_timeline_id: string;
+
+  @Field(() => Timeline)
+  for_you_timeline?: TimelineDTO;
+
+  @Column({ type: "uuid" })
+  @Field(() => ID)
+  @IsUUID()
+  following_timeline_id: string;
+
+  @Field(() => Timeline)
+  following_timeline?: TimelineDTO;
 }

@@ -10,6 +10,8 @@ export type UserDTO = BaseDTO & {
   biography: string;
   followers_count: number;
   following_count: number;
+  timeline_id: string;
+  timeline?: TimelineDTO;
   for_you_timeline_id: string;
   for_you_timeline?: TimelineDTO;
   following_timeline_id: string;

@@ -1,7 +1,8 @@
 import { BaseDTO } from "../base";
-import { PostDTO } from "../post";
+
+import { TimelineItemDTO } from "./timeline-item.dto";
 
 export type TimelineDTO = BaseDTO & {
-  post_ids: string[];
-  posts?: PostDTO[];
+  item_ids: string[];
+  items?: TimelineItemDTO[];
 };

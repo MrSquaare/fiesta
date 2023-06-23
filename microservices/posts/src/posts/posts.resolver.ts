@@ -1,11 +1,8 @@
-import { AccountDTO, AccountRole, UserDTO } from "@common/types";
+import { AccountRole, UserDTO } from "@common/types";
 import { RolesMeta } from "@microservices/common/dist/decorators/account";
 import { CurrentUser } from "@microservices/common/dist/decorators/user";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
-import {
-  UserBridgeInterceptor,
-  UserBridgeModule,
-} from "@microservices/common/dist/modules/user-bridge";
+import { AccountUserBridgeInterceptor } from "@microservices/common/dist/modules/user-bridge";
 import { Post } from "@microservices/types/dist/post";
 import { User } from "@microservices/types/dist/user";
 import { UseGuards, UseInterceptors } from "@nestjs/common";
@@ -61,7 +58,7 @@ export class PostsResolver {
   }
 
   @UseGuards(AuthBridgeGuard)
-  @UseInterceptors(UserBridgeInterceptor)
+  @UseInterceptors(AccountUserBridgeInterceptor)
   @Mutation(() => Post)
   createMyPost(
     @Args("createMyPostInput") createMyPostInput: CreateMyPostInput,
@@ -71,7 +68,7 @@ export class PostsResolver {
   }
 
   @UseGuards(AuthBridgeGuard)
-  @UseInterceptors(UserBridgeInterceptor)
+  @UseInterceptors(AccountUserBridgeInterceptor)
   @Mutation(() => Post)
   removeMyPost(
     @Args("id", { type: () => ID }) id: string,

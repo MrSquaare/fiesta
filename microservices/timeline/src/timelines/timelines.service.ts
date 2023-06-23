@@ -10,66 +10,66 @@ import { UpdateTimelineInput } from "./dto/update-timeline.input";
 export class TimelinesService {
   constructor(
     @InjectRepository(Timeline)
-    private readonly TimelinesRepository: Repository<Timeline>
+    private readonly timelinesRepository: Repository<Timeline>
   ) {}
 
   async create(createTimelineInput: CreateTimelineInput): Promise<Timeline> {
-    const Timeline = this.TimelinesRepository.create(createTimelineInput);
+    const timeline = this.timelinesRepository.create(createTimelineInput);
 
-    return await this.TimelinesRepository.save(Timeline);
+    return await this.timelinesRepository.save(timeline);
   }
 
   async findAll(): Promise<Timeline[]> {
-    const Timelines = await this.TimelinesRepository.find();
+    const timelines = await this.timelinesRepository.find();
 
-    return Timelines;
+    return timelines;
   }
 
   async exists(id: string): Promise<boolean> {
-    const Timeline = await this.TimelinesRepository.findOne({
+    const timeline = await this.timelinesRepository.findOne({
       where: { id },
     });
 
-    return !!Timeline;
+    return !!timeline;
   }
 
   async findOne(id: string): Promise<Timeline> {
-    const Timeline = await this.TimelinesRepository.findOne({
+    const timeline = await this.timelinesRepository.findOne({
       where: { id },
     });
 
-    if (!Timeline) {
+    if (!timeline) {
       throw new NotFoundException(`Timeline #${id} not found`);
     }
 
-    return Timeline;
+    return timeline;
   }
 
   async update(updateTimelineInput: UpdateTimelineInput) {
-    const Timeline = await this.TimelinesRepository.preload(
+    const timeline = await this.timelinesRepository.preload(
       updateTimelineInput
     );
 
-    if (!Timeline) {
+    if (!timeline) {
       throw new NotFoundException(
         `Timeline #${updateTimelineInput.id} not found`
       );
     }
 
-    return this.TimelinesRepository.save(Timeline);
+    return this.timelinesRepository.save(timeline);
   }
 
   async remove(id: string) {
-    const Timeline = await this.TimelinesRepository.findOne({
+    const timeline = await this.timelinesRepository.findOne({
       where: { id },
     });
 
-    if (!Timeline) {
+    if (!timeline) {
       throw new NotFoundException(`Timeline #${id} not found`);
     }
 
-    await this.TimelinesRepository.remove(Timeline);
+    await this.timelinesRepository.remove(timeline);
 
-    return Timeline;
+    return timeline;
   }
 }

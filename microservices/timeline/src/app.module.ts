@@ -5,6 +5,7 @@ import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
+import { TimelineItemsModule } from "./timeline-items/timeline-items.module";
 import { TimelinesModule } from "./timelines/timelines.module";
 
 @Module({
@@ -35,6 +36,7 @@ import { TimelinesModule } from "./timelines/timelines.module";
       autoSchemaFile: { federation: 2 },
     }),
     TimelinesModule,
+    TimelineItemsModule,
     AuthBridgeModule.forRoot({
       redisHost: process.env.AUTH_BRIDGE_REDIS_HOST || "localhost",
       redisPort: parseInt(process.env.AUTH_BRIDGE_REDIS_PORT || "6379"),

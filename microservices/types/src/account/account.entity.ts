@@ -6,7 +6,7 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 import * as bcrypt from "bcrypt";
-import { IsEmail, IsInt, IsString, Matches } from "class-validator";
+import { IsEmail, IsEnum, IsString, Matches } from "class-validator";
 import { BeforeInsert, BeforeUpdate, Column, Entity } from "typeorm";
 
 import { BaseEntity } from "../base";
@@ -38,7 +38,7 @@ export class Account extends BaseEntity implements AccountDTO {
 
   @Column("simple-array", { default: "" })
   @Field(() => [AccountRole])
-  @IsInt({ each: true })
+  @IsEnum(AccountRole, { each: true })
   roles: AccountRole[];
 
   @BeforeInsert()

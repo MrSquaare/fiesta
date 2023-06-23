@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   CallHandler,
   ExecutionContext,
   Inject,
@@ -9,7 +10,7 @@ import { Observable } from "rxjs";
 
 import { UserBridgeService } from "./user-bridge.service";
 
-export class UserBridgeInterceptor implements NestInterceptor {
+export class AccountUserBridgeInterceptor implements NestInterceptor {
   constructor(
     @Inject(UserBridgeService)
     private readonly userBridgeService: UserBridgeService
@@ -26,7 +27,14 @@ export class UserBridgeInterceptor implements NestInterceptor {
     next: CallHandler
   ): Promise<Observable<any>> {
     const request = this.getRequest(context);
-    const user = await this.userBridgeService.checkUser(request.user.id);
+
+    if (!request.account) {
+      throw new BadRequestException("Account not found");
+    }
+
+    const user = await this.userBridgeService.getAccountUser(
+      request.account.id
+    );
 
     request.user = user;
 

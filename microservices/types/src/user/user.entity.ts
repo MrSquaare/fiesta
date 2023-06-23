@@ -48,6 +48,14 @@ export class User extends BaseEntity implements UserDTO {
   @Column({ type: "uuid" })
   @Field(() => ID)
   @IsUUID()
+  timeline_id: string;
+
+  @Field(() => Timeline)
+  timeline?: TimelineDTO;
+
+  @Column({ type: "uuid" })
+  @Field(() => ID)
+  @IsUUID()
   for_you_timeline_id: string;
 
   @Field(() => Timeline)

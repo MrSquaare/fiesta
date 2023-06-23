@@ -1,8 +1,7 @@
 import { AccountRole } from "@common/types";
 import { RolesMeta } from "@microservices/common/dist/decorators/account";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
-import { Post } from "@microservices/types/dist/post";
-import { Timeline } from "@microservices/types/dist/timeline";
+import { Timeline, TimelineItem } from "@microservices/types/dist/timeline";
 import { UseGuards } from "@nestjs/common";
 import {
   Resolver,
@@ -58,9 +57,9 @@ export class TimelinesResolver {
     return this.timelinesService.remove(id);
   }
 
-  @ResolveField(() => Post)
-  posts(@Parent() timeline: Timeline) {
-    return { __typename: "[Post]", ids: timeline.post_ids };
+  @ResolveField(() => TimelineItem)
+  items(@Parent() timeline: Timeline) {
+    return { __typename: "[TimelineItem]", ids: timeline.item_ids };
   }
 
   @ResolveReference()

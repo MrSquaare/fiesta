@@ -1,11 +1,13 @@
 import {
+  InitCommunityReqMessage,
   InitCommunityResMessage,
+  InitUserReqMessage,
   InitUserResMessage,
   TIMELINE_BRIDGE_INIT_COMMUNITY,
   TIMELINE_BRIDGE_INIT_USER,
 } from "@microservices/common/dist/modules/timeline-bridge";
 import { Controller } from "@nestjs/common";
-import { MessagePattern } from "@nestjs/microservices";
+import { MessagePattern, Payload } from "@nestjs/microservices";
 
 import { TimelinesService } from "./timelines.service";
 
@@ -14,10 +16,13 @@ export class TimelinesController {
   constructor(private readonly timelinesService: TimelinesService) {}
 
   @MessagePattern(TIMELINE_BRIDGE_INIT_COMMUNITY)
-  async initCommunity(): Promise<InitCommunityResMessage> {
+  async initCommunity(
+    @Payload() reqMsg: InitCommunityReqMessage
+  ): Promise<InitCommunityResMessage> {
     try {
-      // TODO: Find a way to undo created timelines if one of them fails
-      const timeline = await this.timelinesService.create({ item_ids: [] });
+      const [timeline] = await this.timelinesService.initCommunity(
+        reqMsg.community_id
+      );
 
       return {
         timeline_id: timeline.id,
@@ -30,16 +35,12 @@ export class TimelinesController {
   }
 
   @MessagePattern(TIMELINE_BRIDGE_INIT_USER)
-  async timelineCheck(): Promise<InitUserResMessage> {
+  async timelineCheck(
+    @Payload() reqMsg: InitUserReqMessage
+  ): Promise<InitUserResMessage> {
     try {
-      // TODO: Find a way to undo created timelines if one of them fails
-      const timeline = await this.timelinesService.create({ item_ids: [] });
-      const forYouTimeline = await this.timelinesService.create({
-        item_ids: [],
-      });
-      const followingTimeline = await this.timelinesService.create({
-        item_ids: [],
-      });
+      const [timeline, forYouTimeline, followingTimeline] =
+        await this.timelinesService.initUser(reqMsg.user_id);
 
       return {
         timeline_id: timeline.id,

@@ -31,7 +31,7 @@ export const useAuthStore = create(
     },
     setToken: async (token) => {
       try {
-        SecureStoragePlugin.set({ key: storageKey, value: token });
+        await SecureStoragePlugin.set({ key: storageKey, value: token });
 
         set((state) => {
           state.token = token;
@@ -42,7 +42,7 @@ export const useAuthStore = create(
     },
     clearToken: async () => {
       try {
-        SecureStoragePlugin.remove({ key: storageKey });
+        await SecureStoragePlugin.remove({ key: storageKey });
 
         set((state) => {
           state.token = null;

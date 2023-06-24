@@ -2,7 +2,9 @@ import { FC } from "react";
 
 import { CommunityCard } from "../../components/Community/CommunityCard";
 
-const communities = Array(10).fill(<CommunityCard />);
+const communities = Array(10)
+  .fill(null)
+  .map((_, index) => <CommunityCard key={index} />);
 
 export const Communities: FC = () => {
   return (

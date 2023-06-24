@@ -16,4 +16,6 @@ export type UserDTO = BaseDTO & {
   for_you_timeline?: TimelineDTO;
   following_timeline_id: string;
   following_timeline?: TimelineDTO;
+  is_official: boolean;
+  is_verified: boolean;
 };

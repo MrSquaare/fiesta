@@ -21,7 +21,7 @@ export const useAppStore = create(
     },
     clearCurrentUser: () => {
       set((state) => {
-        state.currentUser = null;
+        state.currentUser = undefined;
       });
     },
   }))

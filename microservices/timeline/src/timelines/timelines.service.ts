@@ -72,4 +72,22 @@ export class TimelinesService {
 
     return timeline;
   }
+
+  async initCommunity(communityId: string) {
+    const timeline = this.timelinesRepository.create();
+
+    return await this.timelinesRepository.save([timeline]);
+  }
+
+  async initUser(userId: string) {
+    const timeline = this.timelinesRepository.create();
+    const forYouTimeline = this.timelinesRepository.create();
+    const followingTimeline = this.timelinesRepository.create();
+
+    return await this.timelinesRepository.save([
+      timeline,
+      forYouTimeline,
+      followingTimeline,
+    ]);
+  }
 }

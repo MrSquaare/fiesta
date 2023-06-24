@@ -1,6 +1,5 @@
 import {
   PostDTO,
-  TimelineDTO,
   TimelineItemDTO,
   TimelineItemType,
   UserDTO,
@@ -13,7 +12,7 @@ import {
   Directive,
 } from "@nestjs/graphql";
 import { IsEnum, IsUUID } from "class-validator";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
 import { BaseEntity } from "../base";
 import { Post } from "../post";
@@ -30,13 +29,13 @@ registerEnumType(TimelineItemType, {
 @Directive("@shareable")
 @Directive('@key(fields: "id")')
 export class TimelineItem extends BaseEntity implements TimelineItemDTO {
-  @Column()
+  @PrimaryColumn({ type: "uuid" })
   @Field(() => ID)
   @IsUUID()
   timeline_id: string;
 
   @Field(() => Timeline)
-  timeline?: TimelineDTO;
+  timeline?: Timeline;
 
   @Column()
   @Field(() => ID)

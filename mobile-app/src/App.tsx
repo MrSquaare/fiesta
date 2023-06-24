@@ -1,5 +1,5 @@
 import { ApolloProvider } from "@apollo/client";
-import { useFindMyUserLazyQuery, useFindMyUserQuery } from "@common/graphql";
+import { useFindMyUserQuery } from "@common/graphql";
 import { FC, PropsWithChildren, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -21,31 +21,45 @@ import { Search } from "./screens/search/Search";
 import { SplashScreen } from "./screens/splash/SplashScreen";
 import { useAppStore } from "./stores/app";
 import { useAuthStore } from "./stores/auth";
+import { isStatusError } from "./utilities";
 
 export const App: FC = () => {
   const token = useAuthStore((state) => state.token);
   const getToken = useAuthStore((state) => state.getToken);
-  const clearToken = useAuthStore((state) => state.getToken);
+  const clearToken = useAuthStore((state) => state.clearToken);
   const currentUser = useAppStore((state) => state.currentUser);
   const setCurrentUser = useAppStore((state) => state.setCurrentUser);
-  const [findMyUser, { data: userData, error: userError, called }] =
-    useFindMyUserLazyQuery();
+  const clearCurrentUser = useAppStore((state) => state.clearCurrentUser);
+  const { data: userData, error: userError } = useFindMyUserQuery(
+    token ? {} : { skip: true }
+  );
 
   useEffect(() => {
     getToken();
   }, [getToken]);
 
   useEffect(() => {
-    if (!token) return;
+    if (token) return;
 
-    findMyUser();
-  }, [findMyUser, token]);
+    clearCurrentUser();
+    client.resetStore();
+  }, [clearCurrentUser, token]);
 
   useEffect(() => {
-    if (!called) return;
+    if (!userData?.myUser) return;
 
-    setCurrentUser(userData?.myUser ?? null);
-  }, [called, setCurrentUser, userData]);
+    setCurrentUser(userData.myUser);
+  }, [setCurrentUser, userData]);
+
+  useEffect(() => {
+    if (!userError) return;
+
+    if (isStatusError(userError, 404)) {
+      setCurrentUser(null);
+    } else {
+      clearToken();
+    }
+  }, [setCurrentUser, clearToken, userError]);
 
   return (
     <BrowserRouter>

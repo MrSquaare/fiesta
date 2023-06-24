@@ -7,7 +7,13 @@ import {
 } from "@nestjs/graphql";
 import * as bcrypt from "bcrypt";
 import { IsEmail, IsEnum, IsString, Matches } from "class-validator";
-import { BeforeInsert, BeforeUpdate, Column, Entity } from "typeorm";
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  PrimaryColumn,
+} from "typeorm";
 
 import { BaseEntity } from "../base";
 
@@ -22,7 +28,7 @@ registerEnumType(AccountRole, {
 @Directive("@shareable")
 @Directive('@key(fields: "id")')
 export class Account extends BaseEntity implements AccountDTO {
-  @Column({ unique: true })
+  @PrimaryColumn({ unique: true })
   @Field(() => String)
   @IsEmail()
   email: string;

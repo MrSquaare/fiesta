@@ -11,21 +11,17 @@ type Params = {
   username?: string;
 };
 
-const posts = Array(10).fill(<PostCard />);
+const posts = Array(10)
+  .fill(null)
+  .map((_, index) => <PostCard key={index} />);
 
 export const Profile: FC = () => {
   const params = useParams<Params>();
 
-  const {
-    data: myUserData,
-    loading: myUserLoading,
-    error: myUserError,
-  } = useFindMyUserQuery(!params.username ? {} : { skip: true });
-  const {
-    data: otherUserData,
-    loading: otherUserLoading,
-    error: otherUserError,
-  } = useFindUserQuery(
+  const { data: myUserData, loading: myUserLoading } = useFindMyUserQuery(
+    !params.username ? {} : { skip: true }
+  );
+  const { data: otherUserData, loading: otherUserLoading } = useFindUserQuery(
     params.username
       ? {
           variables: {

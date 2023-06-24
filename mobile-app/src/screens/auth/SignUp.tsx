@@ -60,9 +60,6 @@ export const SignUp: FC = () => {
     [errors]
   );
 
-  console.log(JSON.parse(JSON.stringify(error ?? {})));
-  console.log("test", apiFormValues);
-
   const onSubmit = useCallback(
     (values: SignUpFieldValues) => {
       signUp({

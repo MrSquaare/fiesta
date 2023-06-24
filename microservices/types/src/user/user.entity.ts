@@ -1,6 +1,6 @@
-import { TimelineDTO, UserDTO } from "@common/types";
+import { UserDTO } from "@common/types";
 import { ObjectType, Field, Int, Directive, ID } from "@nestjs/graphql";
-import { IsNumber, IsString, IsUUID } from "class-validator";
+import { IsBoolean, IsNumber, IsString, IsUUID } from "class-validator";
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
 import { Account } from "../account";
@@ -12,7 +12,7 @@ import { Timeline } from "../timeline";
 @Directive("@shareable")
 @Directive('@key(fields: "id")')
 export class User extends BaseEntity implements UserDTO {
-  @PrimaryColumn({ type: "uuid" })
+  @PrimaryColumn({ type: "uuid", unique: true })
   @Field(() => ID)
   @IsUUID()
   account_id: string;
@@ -20,7 +20,7 @@ export class User extends BaseEntity implements UserDTO {
   @Field(() => Account)
   account: Account;
 
-  @PrimaryColumn()
+  @PrimaryColumn({ unique: true })
   @Field(() => String)
   @IsString()
   username: string;
@@ -45,27 +45,37 @@ export class User extends BaseEntity implements UserDTO {
   @IsNumber()
   following_count: number;
 
-  @Column({ type: "uuid" })
+  @Column({ type: "uuid", unique: true })
   @Field(() => ID)
   @IsUUID()
   timeline_id: string;
 
   @Field(() => Timeline)
-  timeline?: TimelineDTO;
+  timeline?: Timeline;
 
-  @Column({ type: "uuid" })
+  @Column({ type: "uuid", unique: true })
   @Field(() => ID)
   @IsUUID()
   for_you_timeline_id: string;
 
   @Field(() => Timeline)
-  for_you_timeline?: TimelineDTO;
+  for_you_timeline?: Timeline;
 
-  @Column({ type: "uuid" })
+  @Column({ type: "uuid", unique: true })
   @Field(() => ID)
   @IsUUID()
   following_timeline_id: string;
 
   @Field(() => Timeline)
-  following_timeline?: TimelineDTO;
+  following_timeline?: Timeline;
+
+  @Column({ default: false })
+  @Field(() => Boolean)
+  @IsBoolean()
+  is_official: boolean;
+
+  @Column({ default: false })
+  @Field(() => Boolean)
+  @IsBoolean()
+  is_verified: boolean;
 }

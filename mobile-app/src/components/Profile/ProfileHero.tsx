@@ -1,5 +1,5 @@
 import { InlineIcon } from "@iconify/react";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 
 import { useAuthStore } from "../../stores/auth";
 import { MinimalUser } from "../../types";
@@ -12,6 +12,10 @@ type Props = {
 
 export const ProfileHero: FC<Props> = ({ user, isCurrentUser }) => {
   const clearToken = useAuthStore((state) => state.clearToken);
+
+  const onLogout = useCallback(() => {
+    clearToken();
+  }, [clearToken]);
 
   return (
     <div className={"border-b border-b-gray-700"}>
@@ -44,7 +48,7 @@ export const ProfileHero: FC<Props> = ({ user, isCurrentUser }) => {
                 className={
                   "inline-flex items-center rounded-full border border-white bg-gray-900/50 p-1.5 text-center hover:border-blue-600 hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-4 focus:ring-white/50"
                 }
-                onClick={() => clearToken()}
+                onClick={onLogout}
               >
                 <InlineIcon fontSize={"1.25rem"} icon={"ph:sign-out"} />
               </button>

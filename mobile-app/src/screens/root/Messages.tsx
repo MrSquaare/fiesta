@@ -2,7 +2,9 @@ import { FC } from "react";
 
 import { Message } from "../../components/Message/Message";
 
-const messages = Array(10).fill(<Message />);
+const messages = Array(10)
+  .fill(null)
+  .map((_, index) => <Message key={index} />);
 
 export const Messages: FC = () => {
   return (

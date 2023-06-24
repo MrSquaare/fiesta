@@ -4,6 +4,17 @@ import { FieldErrors } from "react-hook-form";
 
 import { FormErrors } from "../types";
 
+export const isStatusError = (
+  error: ApolloError,
+  status: number | number[]
+): boolean => {
+  const statuses = Array.isArray(status) ? status : [status];
+
+  return error?.graphQLErrors.some((error) =>
+    statuses.includes(error.extensions.status as number)
+  );
+};
+
 export const convertCVToFormErrors = <T extends object>(
   errors: ValidationError[]
 ): FormErrors<T> => {

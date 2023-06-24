@@ -1,4 +1,5 @@
 import { AccountDTO } from "@common/types";
+import { TimelineBridgeService } from "@microservices/common/dist/modules/timeline-bridge";
 import { User } from "@microservices/types/dist/user";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -12,7 +13,8 @@ import { UpdateUserInput } from "./dto/update-user.input";
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private readonly usersRepository: Repository<User>
+    private readonly usersRepository: Repository<User>,
+    private readonly timelineBridgeService: TimelineBridgeService
   ) {}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
@@ -101,6 +103,12 @@ export class UsersService {
       ...createMyUserInput,
       account_id: account.id,
     });
+
+    const timelines = await this.timelineBridgeService.initUser(user.id);
+
+    user.timeline_id = timelines.timelineId;
+    user.for_you_timeline_id = timelines.forYouTimelineId;
+    user.following_timeline_id = timelines.followingTimelineId;
 
     return await this.usersRepository.save(user);
   }

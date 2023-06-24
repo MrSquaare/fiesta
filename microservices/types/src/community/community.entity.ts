@@ -1,9 +1,10 @@
 import { CommunityDTO } from "@common/types";
-import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { IsBoolean, IsOptional, IsString, IsUUID } from "class-validator";
+import { Field, ID, Int, ObjectType } from "@nestjs/graphql";
+import { IsBoolean, IsNumber, IsString, IsUUID } from "class-validator";
 import { Column, Entity } from "typeorm";
 
 import { BaseEntity } from "../base";
+import { Timeline } from "../timeline";
 import { User } from "../user";
 
 @Entity()
@@ -14,11 +15,10 @@ export class Community extends BaseEntity implements CommunityDTO {
   @IsString()
   name: string;
 
-  @Column({ nullable: true })
-  @Field(() => String, { nullable: true })
+  @Column({ default: "" })
+  @Field(() => String)
   @IsString()
-  @IsOptional()
-  description?: string;
+  description: string;
 
   @Column({ type: "uuid", nullable: true })
   @Field(() => ID)
@@ -27,6 +27,19 @@ export class Community extends BaseEntity implements CommunityDTO {
 
   @Field(() => User)
   creator?: User;
+
+  @Column({ default: 0 })
+  @Field(() => Int)
+  @IsNumber()
+  members_count: number;
+
+  @Column({ type: "uuid", unique: true })
+  @Field(() => ID)
+  @IsUUID()
+  timeline_id: string;
+
+  @Field(() => Timeline)
+  timeline?: Timeline;
 
   @Column({ default: false })
   @Field(() => Boolean)

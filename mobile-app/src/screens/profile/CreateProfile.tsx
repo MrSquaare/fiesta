@@ -57,6 +57,10 @@ export const CreateProfile: FC = () => {
     [createMyUser]
   );
 
+  const onLogout = useCallback(() => {
+    clearToken();
+  }, [clearToken]);
+
   useEffect(() => {
     if (!data) return;
 
@@ -69,7 +73,7 @@ export const CreateProfile: FC = () => {
         className={
           "rounded-lg border border-gray-600 px-5 py-2.5 text-center text-sm font-medium text-gray-400 hover:bg-gray-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-800"
         }
-        onClick={() => clearToken()}
+        onClick={onLogout}
         type={"button"}
       >
         Log out

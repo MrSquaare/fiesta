@@ -20,10 +20,10 @@
     "format": "eslint src/ --fix",
     "clean:android": "rimraf android/app/build/",
     "clean:ios": "rimraf ios/App/build/",
-    "clean": "pnpm run clean:android && rimraf builds/ dist/",
+    "clean": "pnpm run clean:android && rimraf builds/ dist/ .turbo/",
     "fclean:android": "pnpm run clean:android && rimraf android/.gradle/",
     "fclean:ios": "pnpm run clean:ios",
-    "fclean": "pnpm run clean && pnpm run fclean:android && rimraf node_modules/"
+    "fclean": "pnpm run clean && pnpm run fclean:android && pnpm run fclean:ios && rimraf node_modules/ .turbo/"
   },
   "dependencies": {
     "@apollo/client": "^3.7.15",

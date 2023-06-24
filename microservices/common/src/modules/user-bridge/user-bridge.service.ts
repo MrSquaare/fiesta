@@ -1,13 +1,13 @@
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { ClientProxy } from "@nestjs/microservices";
+import { firstValueFrom, timeout } from "rxjs";
+
 import {
   CheckUserReqMessage,
   CheckUserResMessage,
   GetAccountUserReqMessage,
   GetAccountUserResMessage,
-} from "@microservices/types/dist/user-bridge";
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { ClientProxy } from "@nestjs/microservices";
-import { firstValueFrom, timeout } from "rxjs";
-
+} from "./dto";
 import {
   USER_BRIDGE_CHECK_USER,
   USER_BRIDGE_NAME,

@@ -1,8 +1,8 @@
-import { AUTH_BRIDGE_CHECK_AUTH } from "@microservices/common/dist/modules/auth-bridge";
 import {
   CheckAuthReqMessage,
   CheckAuthResMessage,
-} from "@microservices/types/dist/auth-bridge";
+  AUTH_BRIDGE_CHECK_AUTH,
+} from "@microservices/common/dist/modules/auth-bridge";
 import { Controller, UnauthorizedException } from "@nestjs/common";
 import { MessagePattern, Payload } from "@nestjs/microservices";
 

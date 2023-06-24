@@ -1,8 +1,4 @@
 import { AccountRole } from "@common/types";
-import {
-  CheckAuthReqMessage,
-  CheckAuthResMessage,
-} from "@microservices/types/dist/auth-bridge";
 import { ForbiddenException, Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { firstValueFrom, timeout } from "rxjs";
@@ -11,6 +7,7 @@ import {
   AUTH_BRIDGE_NAME,
   AUTH_BRIDGE_CHECK_AUTH,
 } from "./auth-bridge.constants";
+import { CheckAuthReqMessage, CheckAuthResMessage } from "./dto";
 
 @Injectable()
 export class AuthBridgeService {

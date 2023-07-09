@@ -2,6 +2,8 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { firstValueFrom, timeout } from "rxjs";
 
+import { mapErrorToException } from "../../helpers/error";
+
 import {
   InitCommunityReqMessage,
   InitCommunityResMessage,
@@ -29,8 +31,8 @@ export class TimelineBridgeService {
         .pipe(timeout(5000))
     );
 
-    if (resMsg.error) {
-      throw resMsg.error;
+    if ("error" in resMsg) {
+      throw mapErrorToException(resMsg.error);
     }
 
     return {
@@ -46,7 +48,7 @@ export class TimelineBridgeService {
         .pipe(timeout(5000))
     );
 
-    if (resMsg.error) {
+    if ("error" in resMsg) {
       throw resMsg.error;
     }
 

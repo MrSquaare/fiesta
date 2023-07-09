@@ -4,7 +4,10 @@ export type GetAccountUserReqMessage = {
   accountId: string;
 };
 
-export type GetAccountUserResMessage = {
-  user?: UserDTO;
-  error?: any;
-};
+export type GetAccountUserResMessage =
+  | {
+      user: UserDTO;
+    }
+  | {
+      error: any;
+    };

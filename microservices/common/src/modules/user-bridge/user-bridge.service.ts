@@ -1,6 +1,8 @@
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { firstValueFrom, timeout } from "rxjs";
+
+import { mapErrorToException } from "../../helpers/error";
 
 import {
   CheckUserReqMessage,
@@ -26,12 +28,8 @@ export class UserBridgeService {
       this.usersClient.send(USER_BRIDGE_CHECK_USER, reqMsg).pipe(timeout(5000))
     );
 
-    if (resMsg.error) {
-      throw resMsg.error;
-    }
-
-    if (!resMsg.user) {
-      throw new NotFoundException(`User #${id} not found`);
+    if ("error" in resMsg) {
+      throw mapErrorToException(resMsg.error);
     }
 
     return resMsg.user;
@@ -43,12 +41,8 @@ export class UserBridgeService {
       this.usersClient.send(USER_BRIDGE_CHECK_USER, reqMsg).pipe(timeout(5000))
     );
 
-    if (resMsg.error) {
-      throw resMsg.error;
-    }
-
-    if (!resMsg.user) {
-      throw new NotFoundException(`User for account #${accountId} not found`);
+    if ("error" in resMsg) {
+      throw mapErrorToException(resMsg.error);
     }
 
     return resMsg.user;

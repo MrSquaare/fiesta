@@ -33,7 +33,7 @@ export class UsersController {
   }
 
   @MessagePattern(USER_BRIDGE_GET_ACCOUNT_USER)
-  async userCheck(
+  async getAccountUser(
     @Payload() payload: GetAccountUserReqMessage
   ): Promise<GetAccountUserResMessage> {
     try {

@@ -64,4 +64,32 @@ export class AccountsService {
 
     return account;
   }
+
+  async createByCredentials(email: string, password: string): Promise<Account> {
+    const account = this.accountsRepository.create({
+      email,
+      password,
+    });
+
+    return await this.accountsRepository.save(account);
+  }
+
+  async getByCredentials(email: string, password: string): Promise<Account> {
+    const account = await this.accountsRepository.findOne({
+      where: { email },
+      select: ["id", "password"],
+    });
+
+    if (!account) {
+      throw new NotFoundException("Invalid credentials");
+    }
+
+    if (!account.checkPassword(password)) {
+      throw new NotFoundException("Invalid credentials");
+    }
+
+    account.password = undefined;
+
+    return account;
+  }
 }

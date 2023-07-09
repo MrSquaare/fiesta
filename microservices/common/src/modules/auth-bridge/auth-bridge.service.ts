@@ -1,7 +1,9 @@
 import { AccountRole } from "@common/types";
-import { ForbiddenException, Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { firstValueFrom, timeout } from "rxjs";
+
+import { mapErrorToException } from "../../helpers/error";
 
 import {
   AUTH_BRIDGE_NAME,
@@ -22,12 +24,8 @@ export class AuthBridgeService {
       this.authClient.send(AUTH_BRIDGE_CHECK_AUTH, reqMsg).pipe(timeout(5000))
     );
 
-    if (resMsg.error) {
-      throw resMsg.error;
-    }
-
-    if (!resMsg.account) {
-      throw new ForbiddenException("Unauthorized");
+    if ("error" in resMsg) {
+      throw mapErrorToException(resMsg.error);
     }
 
     return resMsg.account;

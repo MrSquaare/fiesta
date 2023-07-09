@@ -6,6 +6,6 @@ export enum AccountRole {
 
 export type AccountDTO = BaseDTO & {
   email: string;
-  password: string;
+  password?: string;
   roles: AccountRole[];
 };

@@ -20,7 +20,7 @@ export class User extends BaseEntity implements UserDTO {
   @Field(() => Account)
   account: Account;
 
-  @PrimaryColumn({ unique: true })
+  @Column({ unique: true })
   @Field(() => String)
   @IsString()
   username: string;

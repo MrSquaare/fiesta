@@ -5,7 +5,10 @@ export type CheckAuthReqMessage = {
   roles?: AccountRole[];
 };
 
-export type CheckAuthResMessage = {
-  account?: AccountDTO;
-  error?: any;
-};
+export type CheckAuthResMessage =
+  | {
+      account: AccountDTO;
+    }
+  | {
+      error: any;
+    };

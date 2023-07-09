@@ -1,13 +1,12 @@
-import { Account } from "@microservices/types/dist/account";
+import { AccountDTO } from "@common/types";
+import { AccountBridgeService } from "@microservices/common/dist/modules/account-bridge";
 import { Auth } from "@microservices/types/dist/auth";
 import {
   BadRequestException,
   ForbiddenException,
   Injectable,
 } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
 import * as nJWT from "njwt";
-import { Repository } from "typeorm";
 
 import { JwtBody } from "../types/jwt";
 
@@ -16,24 +15,13 @@ import { SignUpInput } from "./dto/sign-up.input";
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @InjectRepository(Account)
-    private readonly accountsRepository: Repository<Account>
-  ) {}
+  constructor(private readonly accountBridgeService: AccountBridgeService) {}
 
   async signIn(signInInput: SignInInput) {
-    const account = await this.accountsRepository.findOne({
-      where: { email: signInInput.email },
-      select: ["id", "password"],
-    });
-
-    if (!account) {
-      throw new ForbiddenException("Invalid credentials");
-    }
-
-    if (!account.checkPassword(signInInput.password)) {
-      throw new ForbiddenException("Invalid credentials");
-    }
+    const account = await this.accountBridgeService.getByCredentials(
+      signInInput.email,
+      signInInput.password
+    );
 
     const auth = new Auth();
 
@@ -43,17 +31,19 @@ export class AuthService {
   }
 
   async signUp(signUpInput: SignUpInput) {
-    const account = this.accountsRepository.create(signUpInput);
-    const savedAccount = await this.accountsRepository.save(account);
+    const account = await this.accountBridgeService.createByCredentials(
+      signUpInput.email,
+      signUpInput.password
+    );
 
     const auth = new Auth();
 
-    auth.token = this.generateToken(savedAccount.id);
+    auth.token = this.generateToken(account.id);
 
     return auth;
   }
 
-  async authenticate(token: string): Promise<Account> {
+  async authenticate(token: string): Promise<AccountDTO> {
     try {
       const jwtBody = this.verifyToken(token);
 
@@ -61,9 +51,7 @@ export class AuthService {
         throw new BadRequestException("Invalid token");
       }
 
-      const account = await this.accountsRepository.findOne({
-        where: { id: jwtBody.id },
-      });
+      const account = await this.accountBridgeService.checkAccount(jwtBody.id);
 
       return account;
     } catch (e) {
@@ -71,7 +59,7 @@ export class AuthService {
     }
   }
 
-  async authorize(account: Account, roles?: number[]) {
+  async authorize(account: AccountDTO, roles?: number[]) {
     const authorized =
       !roles?.length || roles.some((role) => account.roles.includes(role));
 

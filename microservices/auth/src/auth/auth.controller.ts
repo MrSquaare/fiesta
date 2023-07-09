@@ -13,7 +13,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @MessagePattern(AUTH_BRIDGE_CHECK_AUTH)
-  async authCheck(
+  async checkAuth(
     @Payload() reqMsg: CheckAuthReqMessage
   ): Promise<CheckAuthResMessage> {
     try {

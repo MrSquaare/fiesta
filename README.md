@@ -1,6 +1,8 @@
 # fiesta
 
-Time to fiesta!
+Time to fiesta! A Twitter-like application.
+
+This is a bleeding development version (an unstable, WIP, version).
 
 ## Table of Contents
 

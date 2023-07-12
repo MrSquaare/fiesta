@@ -1,6 +1,8 @@
 # fiesta
 
-Time to fiesta!
+Time to fiesta! A Twitter-like application.
+
+Please see [bleeding-dev branch](https://github.com/MrSquaare/fiesta/tree/bleeding-dev) for an up-to-date version.
 
 ## Table of Contents
 

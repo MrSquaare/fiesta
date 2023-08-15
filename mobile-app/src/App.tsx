@@ -1,5 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import { useFindMyUserQuery } from "@common/graphql";
+import { MantineProvider } from "@mantine/core";
 import { FC, PropsWithChildren, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -102,5 +103,13 @@ export const App: FC = () => {
 };
 
 export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  return (
+    <MantineProvider
+      theme={{ colorScheme: "dark" }}
+      withGlobalStyles
+      withNormalizeCSS
+    >
+      <ApolloProvider client={client}>{children}</ApolloProvider>
+    </MantineProvider>
+  );
 };

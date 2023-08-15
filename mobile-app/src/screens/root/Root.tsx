@@ -1,3 +1,4 @@
+import { Box, Flex } from "@mantine/core";
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 
@@ -6,12 +7,12 @@ import { TopBar } from "../../components/Layout/TopBar";
 
 export const Root: FC = () => {
   return (
-    <div className={"flex h-full flex-col bg-gray-900 text-white"}>
+    <Flex direction={"column"} h={"100vh"}>
       <TopBar />
-      <div className={"grow overflow-auto"}>
+      <Box sx={{ flex: 1, overflow: "auto" }}>
         <Outlet />
-      </div>
+      </Box>
       <NavBar />
-    </div>
+    </Flex>
   );
 };

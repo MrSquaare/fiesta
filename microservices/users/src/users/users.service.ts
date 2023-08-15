@@ -1,7 +1,12 @@
 import { AccountDTO } from "@common/types";
 import { TimelineBridgeService } from "@microservices/common/dist/modules/timeline-bridge";
 import { User } from "@microservices/types/dist/user";
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  ValidationError,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { In, Repository } from "typeorm";
 
@@ -99,6 +104,30 @@ export class UsersService {
     createMyUserInput: CreateMyUserInput,
     account: AccountDTO
   ): Promise<User> {
+    const existingUser = await this.usersRepository.findOne({
+      where: [
+        { account_id: account.id },
+        { username: createMyUserInput.username },
+      ],
+    });
+
+    if (existingUser) {
+      if (existingUser.account_id === account.id) {
+        throw new BadRequestException("User already created for this account");
+      }
+
+      if (existingUser.username === createMyUserInput.username) {
+        throw new BadRequestException([
+          {
+            property: "username",
+            constraints: {
+              taken: "Username already taken",
+            },
+          },
+        ] as ValidationError[]);
+      }
+    }
+
     const user = this.usersRepository.create({
       ...createMyUserInput,
       account_id: account.id,
@@ -122,7 +151,7 @@ export class UsersService {
     });
 
     if (!user) {
-      throw new NotFoundException(`User #${account.id} not found`);
+      throw new NotFoundException("User not created for this account");
     }
 
     return this.usersRepository.save({

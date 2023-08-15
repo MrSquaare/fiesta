@@ -1,10 +1,10 @@
 import { useFindMyUserQuery, useFindUserQuery } from "@common/graphql";
+import { Flex } from "@mantine/core";
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 import { PostCard } from "../../components/Post/PostCard";
 import { ProfileHero } from "../../components/Profile/ProfileHero";
-import { ProfileTopBar } from "../../components/Profile/ProfileTopBar";
 import { LoadingPage } from "../../components/UI/LoadingPage";
 
 type Params = {
@@ -42,14 +42,11 @@ export const Profile: FC = () => {
   }
 
   return (
-    <div
-      className={"flex h-full flex-col overflow-auto bg-gray-900 text-white"}
-    >
-      <div className={"fixed top-0 w-full"}>
-        <ProfileTopBar />
-      </div>
+    <Flex direction={"column"}>
       <ProfileHero isCurrentUser={!!myUserData} user={user} />
-      <div className={"flex flex-col gap-3 p-3"}>{posts}</div>
-    </div>
+      <Flex direction={"column"} gap={8} p={8}>
+        {posts}
+      </Flex>
+    </Flex>
   );
 };

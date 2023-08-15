@@ -1,9 +1,10 @@
 import { AccountRole } from "@common/types";
 import { RolesMeta } from "@microservices/common/dist/decorators/account";
+import { GqlFilter } from "@microservices/common/dist/filters";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { Post } from "@microservices/types/dist/post";
 import { TimelineItem } from "@microservices/types/dist/timeline";
-import { UseGuards } from "@nestjs/common";
+import { UseFilters, UseGuards } from "@nestjs/common";
 import {
   Resolver,
   Query,
@@ -19,6 +20,7 @@ import { CreateTimelineItemInput } from "./dto/create-timeline-item.input";
 import { UpdateTimelineItemInput } from "./dto/update-timeline-item.input";
 import { TimelineItemsService } from "./timeline-items.service";
 
+@UseFilters(GqlFilter)
 @Resolver(() => TimelineItem)
 export class TimelineItemsResolver {
   constructor(private readonly timelineitemsService: TimelineItemsService) {}

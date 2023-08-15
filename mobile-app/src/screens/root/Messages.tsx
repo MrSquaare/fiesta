@@ -1,3 +1,4 @@
+import { Flex } from "@mantine/core";
 import { FC } from "react";
 
 import { Message } from "../../components/Message/Message";
@@ -8,8 +9,8 @@ const messages = Array(10)
 
 export const Messages: FC = () => {
   return (
-    <div className={"grid grid-cols-1 divide-y divide-gray-700"}>
+    <Flex direction={"column"} gap={8} p={8}>
       {messages}
-    </div>
+    </Flex>
   );
 };

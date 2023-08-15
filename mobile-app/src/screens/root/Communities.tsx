@@ -1,3 +1,4 @@
+import { Flex, SimpleGrid, Title } from "@mantine/core";
 import { FC } from "react";
 
 import { CommunityCard } from "../../components/Community/CommunityCard";
@@ -8,11 +9,19 @@ const communities = Array(10)
 
 export const Communities: FC = () => {
   return (
-    <div className={"flex flex-col p-3"}>
-      <h1 className={"mb-2 text-2xl font-bold"}>Official communities</h1>
-      <div className={"mb-4 grid grid-cols-2 gap-3"}>{communities}</div>
-      <h1 className={"mb-2 text-2xl font-bold"}>Popular communities</h1>
-      <div className={"grid grid-cols-2 gap-3"}>{communities}</div>
-    </div>
+    <Flex direction={"column"} p={8}>
+      <Title mb={"xs"} order={1} size={"h2"}>
+        Official communities
+      </Title>
+      <SimpleGrid cols={2} spacing={8}>
+        {communities}
+      </SimpleGrid>
+      <Title mb={"xs"} order={1} size={"h2"}>
+        Popular communities
+      </Title>
+      <SimpleGrid cols={2} spacing={8}>
+        {communities}
+      </SimpleGrid>
+    </Flex>
   );
 };

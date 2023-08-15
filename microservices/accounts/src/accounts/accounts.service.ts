@@ -1,5 +1,9 @@
 import { Account } from "@microservices/types/dist/account";
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
@@ -66,6 +70,14 @@ export class AccountsService {
   }
 
   async createByCredentials(email: string, password: string): Promise<Account> {
+    const existingAccount = await this.accountsRepository.findOne({
+      where: { email },
+    });
+
+    if (existingAccount) {
+      throw new BadRequestException("Account already exists");
+    }
+
     const account = this.accountsRepository.create({
       email,
       password,
@@ -81,11 +93,11 @@ export class AccountsService {
     });
 
     if (!account) {
-      throw new NotFoundException("Invalid credentials");
+      throw new BadRequestException("Invalid credentials");
     }
 
     if (!account.checkPassword(password)) {
-      throw new NotFoundException("Invalid credentials");
+      throw new BadRequestException("Invalid credentials");
     }
 
     account.password = undefined;

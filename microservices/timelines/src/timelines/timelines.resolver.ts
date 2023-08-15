@@ -1,8 +1,9 @@
 import { AccountRole } from "@common/types";
 import { RolesMeta } from "@microservices/common/dist/decorators/account";
+import { GqlFilter } from "@microservices/common/dist/filters";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { Timeline, TimelineItem } from "@microservices/types/dist/timeline";
-import { UseGuards } from "@nestjs/common";
+import { UseFilters, UseGuards } from "@nestjs/common";
 import {
   Resolver,
   Query,
@@ -18,6 +19,7 @@ import { CreateTimelineInput } from "./dto/create-timeline.input";
 import { UpdateTimelineInput } from "./dto/update-timeline.input";
 import { TimelinesService } from "./timelines.service";
 
+@UseFilters(GqlFilter)
 @Resolver(() => Timeline)
 export class TimelinesResolver {
   constructor(private readonly timelinesService: TimelinesService) {}

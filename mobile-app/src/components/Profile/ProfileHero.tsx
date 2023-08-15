@@ -1,5 +1,15 @@
-import { InlineIcon } from "@iconify/react";
+import { Icon } from "@iconify/react";
+import {
+  ActionIcon,
+  Avatar,
+  BackgroundImage,
+  Box,
+  Flex,
+  Tabs,
+  Text,
+} from "@mantine/core";
 import { FC, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "../../stores/auth";
 import { MinimalUser } from "../../types";
@@ -11,6 +21,8 @@ type Props = {
 };
 
 export const ProfileHero: FC<Props> = ({ user, isCurrentUser }) => {
+  const navigate = useNavigate();
+
   const clearToken = useAuthStore((state) => state.clearToken);
 
   const onLogout = useCallback(() => {
@@ -18,100 +30,71 @@ export const ProfileHero: FC<Props> = ({ user, isCurrentUser }) => {
   }, [clearToken]);
 
   return (
-    <div className={"border-b border-b-gray-700"}>
-      <div>
-        <img
-          className={"h-28 w-full overflow-hidden bg-gray-800 object-cover"}
-          src={getUserBanner(user)}
-        />
-        <div className={"-mt-8 flex items-center justify-between px-3"}>
-          <img className={"h-16 w-16 rounded-full"} src={getUserAvatar(user)} />
+    <Box>
+      <BackgroundImage pos={"relative"} src={getUserBanner(user)}>
+        <Flex direction={"column"} h={160} justify={"space-between"} p={8}>
+          <Flex align={"center"} gap={8} justify={"space-between"}>
+            <ActionIcon onClick={() => navigate(-1)} variant={"light"}>
+              <Icon fontSize={"1.5rem"} icon={"ph:arrow-left"} />
+            </ActionIcon>
+            <ActionIcon component={Link} to={"/search"} variant={"light"}>
+              <Icon fontSize={"1.5rem"} icon={"ph:magnifying-glass"} />
+            </ActionIcon>
+          </Flex>
+        </Flex>
+      </BackgroundImage>
+      <Box p={8}>
+        <Flex align={"center"} justify={"space-between"} mb={4} mt={-40}>
+          <Avatar radius={"50%"} size={64} src={getUserAvatar(user)} />
           {isCurrentUser ? (
-            <div className={"flex items-center gap-2"}>
-              <button
-                className={
-                  "inline-flex items-center rounded-full border border-white bg-gray-900/50 p-1.5 text-center hover:border-blue-600 hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-4 focus:ring-white/50"
-                }
-                type={"button"}
-              >
-                <InlineIcon fontSize={"1.25rem"} icon={"ph:pencil"} />
-              </button>
-              <button
-                className={
-                  "inline-flex items-center rounded-full border border-white bg-gray-900/50 p-1.5 text-center hover:border-blue-600 hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-4 focus:ring-white/50"
-                }
-                type={"button"}
-              >
-                <InlineIcon fontSize={"1.25rem"} icon={"ph:gear"} />
-              </button>
-              <button
-                className={
-                  "inline-flex items-center rounded-full border border-white bg-gray-900/50 p-1.5 text-center hover:border-blue-600 hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-4 focus:ring-white/50"
-                }
-                onClick={onLogout}
-              >
-                <InlineIcon fontSize={"1.25rem"} icon={"ph:sign-out"} />
-              </button>
-            </div>
+            <Flex align={"center"} gap={8}>
+              <ActionIcon variant={"light"}>
+                <Icon fontSize={"1.5rem"} icon={"ph:pencil"} />
+              </ActionIcon>
+              <ActionIcon variant={"light"}>
+                <Icon fontSize={"1.5rem"} icon={"ph:gear"} />
+              </ActionIcon>
+              <ActionIcon onClick={onLogout} variant={"light"}>
+                <Icon fontSize={"1.5rem"} icon={"ph:sign-out"} />
+              </ActionIcon>
+            </Flex>
           ) : null}
-        </div>
-      </div>
-      <div className={"p-3"}>
-        <div className={"mb-2"}>
-          <span className={"mr-1 text-xl font-bold"}>{user.display_name}</span>
-          <span className={"text-gray-400"}>@{user.username}</span>
-        </div>
-        {user.biography ? <div className={"mb-2"}>{user.biography}</div> : null}
-        <div className={"flex items-center gap-2"}>
-          <div>
-            <span className={"font-bold"}>{user.following_count}</span>{" "}
-            <span className={"text-gray-400"}>followings</span>
-          </div>
-          <div>
-            <span className={"font-bold"}>{user.followers_count}</span>{" "}
-            <span className={"text-gray-400"}>followers</span>
-          </div>
-        </div>
-      </div>
-      <div className={"p-3"}>
-        <ul
-          className={
-            "flex  overflow-auto text-center text-sm font-medium text-gray-400"
-          }
-        >
-          <li className={"mr-2"}>
-            <a
-              aria-current={"page"}
-              className={
-                "active inline-block rounded-lg bg-blue-600 px-3 py-2 text-white"
-              }
-              href={"#"}
-            >
-              Posts
-            </a>
-          </li>
-          <li>
-            <a
-              className={
-                "inline-block rounded-lg px-3 py-2 hover:bg-gray-800 hover:text-white"
-              }
-              href={"#"}
-            >
-              Likes
-            </a>
-          </li>
-          <li className={"mr-2"}>
-            <a
-              className={
-                "inline-block rounded-lg px-3 py-2 hover:bg-gray-800 hover:text-white"
-              }
-              href={"#"}
-            >
-              Comments
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+        </Flex>
+        <Flex align={"center"} gap={8} mb={4}>
+          <Text size={"lg"} weight={"bold"}>
+            {user.display_name}
+          </Text>
+          <Text color={"dark.3"}>@{user.username}</Text>
+        </Flex>
+        {user.biography ? <Text mb={4}>{user.biography}</Text> : null}
+        <Flex align={"center"} gap={8}>
+          <Text>
+            <Text span={true} weight={"bold"}>
+              {user.following_count}
+            </Text>{" "}
+            followings
+          </Text>
+          <Text>
+            <Text span={true} weight={"bold"}>
+              {user.followers_count}
+            </Text>{" "}
+            followers
+          </Text>
+        </Flex>
+      </Box>
+      <Tabs defaultValue={"gallery"}>
+        <Tabs.List>
+          <Tabs.Tab sx={{ flexGrow: 1 }} value={"posts"}>
+            Posts
+          </Tabs.Tab>
+          <Tabs.Tab sx={{ flexGrow: 1 }} value={"likes"}>
+            Likes
+          </Tabs.Tab>
+          <Tabs.Tab sx={{ flexGrow: 1 }} value={"comments"}>
+            Comments
+          </Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+    </Box>
   );
 };

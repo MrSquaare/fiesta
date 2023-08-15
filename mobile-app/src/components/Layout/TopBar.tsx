@@ -1,6 +1,7 @@
-import { InlineIcon } from "@iconify/react";
+import { Icon } from "@iconify/react";
+import { ActionIcon, Avatar, Flex } from "@mantine/core";
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useAppStore } from "../../stores/app";
 import { getUserAvatar } from "../../utilities/user";
@@ -11,20 +12,13 @@ export const TopBar: FC = () => {
   if (!currentUser) return null;
 
   return (
-    <div
-      className={
-        "w-100 flex items-center justify-between border-b border-b-gray-800 bg-gray-900 p-3 text-white"
-      }
-    >
-      <NavLink className={"p-1"} to={"/profile"}>
-        <img
-          className={"h-8 w-8 rounded-full"}
-          src={getUserAvatar(currentUser)}
-        />
-      </NavLink>
-      <NavLink className={"p-1"} to={"/search"}>
-        <InlineIcon fontSize={"1.5rem"} icon={"ph:magnifying-glass"} />
-      </NavLink>
-    </div>
+    <Flex align={"center"} bg={"dark.6"} justify={"space-between"} p={8}>
+      <Link to={"/profile"}>
+        <Avatar radius={"50%"} size={24} src={getUserAvatar(currentUser)} />
+      </Link>
+      <ActionIcon component={Link} to={"/search"} variant={"transparent"}>
+        <Icon fontSize={"1.5rem"} icon={"ph:magnifying-glass"} />
+      </ActionIcon>
+    </Flex>
   );
 };

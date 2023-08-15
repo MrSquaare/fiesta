@@ -1,14 +1,16 @@
 import { AccountRole } from "@common/types";
 import { RolesMeta } from "@microservices/common/dist/decorators/account";
+import { GqlFilter } from "@microservices/common/dist/filters";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { Account } from "@microservices/types/dist/account";
-import { UseGuards } from "@nestjs/common";
+import { UseFilters, UseGuards } from "@nestjs/common";
 import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
 
 import { AccountsService } from "./accounts.service";
 import { CreateAccountInput } from "./dto/create-account.input";
 import { UpdateAccountInput } from "./dto/update-account.input";
 
+@UseFilters(GqlFilter)
 @Resolver(() => Account)
 export class AccountsResolver {
   constructor(private readonly accountsService: AccountsService) {}

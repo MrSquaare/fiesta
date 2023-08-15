@@ -1,14 +1,16 @@
 import { AccountRole } from "@common/types";
 import { RolesMeta } from "@microservices/common/dist/decorators/account";
+import { GqlFilter } from "@microservices/common/dist/filters";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { Community } from "@microservices/types/dist/community";
-import { UseGuards } from "@nestjs/common";
+import { UseFilters, UseGuards } from "@nestjs/common";
 import { Resolver, Query, Mutation, Args, ID } from "@nestjs/graphql";
 
 import { CommunitiesService } from "./communities.service";
 import { CreateCommunityInput } from "./dto/create-community.input";
 import { UpdateCommunityInput } from "./dto/update-community.input";
 
+@UseFilters(GqlFilter)
 @Resolver(() => Community)
 export class CommunitiesResolver {
   constructor(private readonly communitiesService: CommunitiesService) {}

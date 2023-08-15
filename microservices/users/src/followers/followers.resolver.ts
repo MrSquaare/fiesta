@@ -1,9 +1,10 @@
 import { AccountRole } from "@common/types";
 import { RolesMeta } from "@microservices/common/dist/decorators/account";
+import { GqlFilter } from "@microservices/common/dist/filters";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { Follower } from "@microservices/types/dist/follower";
 import { User } from "@microservices/types/dist/user";
-import { UseGuards } from "@nestjs/common";
+import { UseFilters, UseGuards } from "@nestjs/common";
 import {
   Resolver,
   Query,
@@ -18,6 +19,7 @@ import { AddFollowerInput } from "./dto/add-follower.input";
 import { RemoveFollowerInput } from "./dto/remove-follower.input";
 import { FollowersService } from "./followers.service";
 
+@UseFilters(GqlFilter)
 @Resolver(() => Follower)
 export class FollowersResolver {
   constructor(private readonly followersService: FollowersService) {}

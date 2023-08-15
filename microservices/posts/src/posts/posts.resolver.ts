@@ -1,11 +1,12 @@
 import { AccountRole, UserDTO } from "@common/types";
 import { RolesMeta } from "@microservices/common/dist/decorators/account";
 import { CurrentUser } from "@microservices/common/dist/decorators/user";
+import { GqlFilter } from "@microservices/common/dist/filters";
 import { AuthBridgeGuard } from "@microservices/common/dist/modules/auth-bridge";
 import { AccountUserBridgeInterceptor } from "@microservices/common/dist/modules/user-bridge";
 import { Post } from "@microservices/types/dist/post";
 import { User } from "@microservices/types/dist/user";
-import { UseGuards, UseInterceptors } from "@nestjs/common";
+import { UseFilters, UseGuards, UseInterceptors } from "@nestjs/common";
 import {
   Resolver,
   Query,
@@ -22,6 +23,7 @@ import { CreatePostInput } from "./dto/create-post.input";
 import { UpdatePostInput } from "./dto/update-post.input";
 import { PostsService } from "./posts.service";
 
+@UseFilters(GqlFilter)
 @Resolver(() => Post)
 export class PostsResolver {
   constructor(private readonly postsService: PostsService) {}

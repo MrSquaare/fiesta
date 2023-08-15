@@ -1,3 +1,4 @@
+import { Flex } from "@mantine/core";
 import { FC } from "react";
 
 import { PostCard } from "../../components/Post/PostCard";
@@ -7,5 +8,9 @@ const posts = Array(10)
   .map((_, index) => <PostCard key={index} />);
 
 export const Home: FC = () => {
-  return <div className={"flex flex-col gap-3 p-3"}>{posts}</div>;
+  return (
+    <Flex direction={"column"} gap={8} p={8}>
+      {posts}
+    </Flex>
+  );
 };

@@ -1,6 +1,7 @@
-import { InlineIcon } from "@iconify/react";
+import { Icon } from "@iconify/react";
+import { ActionIcon, Badge, Box, Flex } from "@mantine/core";
 import { FC } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { SearchBar } from "./SearchBar";
 
@@ -8,27 +9,26 @@ export const SearchTopBar: FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div
-      className={
-        "w-100 flex items-center gap-3 border-b border-b-gray-800 bg-gray-900 p-3 text-white"
-      }
-    >
-      <button className={"p-1"} onClick={() => navigate(-1)} type={"button"}>
-        <InlineIcon fontSize={"1.5rem"} icon={"ph:arrow-left"} />
-      </button>
-      <div className={"grow"}>
+    <Flex align={"center"} bg={"dark.6"} gap={8} p={8}>
+      <ActionIcon onClick={() => navigate(-1)} variant={"transparent"}>
+        <Icon fontSize={"1.5rem"} icon={"ph:arrow-left"} />
+      </ActionIcon>
+      <Box sx={{ flex: 1 }}>
         <SearchBar />
-      </div>
-      <NavLink className={"p-1"} to={"/search"}>
-        <InlineIcon fontSize={"1.5rem"} icon={"ph:faders"} />
-        <div
-          className={
-            "absolute bottom-3 right-3 inline-flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-900 bg-blue-600 text-xs font-bold text-white"
-          }
-        >
-          9+
-        </div>
-      </NavLink>
-    </div>
+      </Box>
+      <ActionIcon
+        component={Link}
+        sx={{ position: "relative" }}
+        to={"/search"}
+        variant={"transparent"}
+      >
+        <Icon fontSize={"1.5rem"} icon={"ph:faders"} />
+        <Box sx={{ position: "absolute", bottom: -4, left: -4, zIndex: 10 }}>
+          <Badge color={"red"} size={"xs"} variant={"filled"}>
+            9+
+          </Badge>
+        </Box>
+      </ActionIcon>
+    </Flex>
   );
 };

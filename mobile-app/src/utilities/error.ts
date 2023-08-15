@@ -42,9 +42,11 @@ export const convertApolloToFormErrors = <T extends object>(
 
   if (!graphQLError) return;
 
-  const extensions = graphQLError.extensions as any;
+  const extensions = graphQLError.extensions;
 
-  return convertCVToFormErrors<T>(extensions.originalError.message);
+  if (!(extensions.message instanceof Array)) return;
+
+  return convertCVToFormErrors<T>(extensions.message);
 };
 
 export const convertRHFToFormErrors = <T extends object>(

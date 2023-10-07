@@ -5,5 +5,5 @@ import { InputType, PickType } from "@nestjs/graphql";
 export class CreateTimelineItemInput extends PickType(
   TimelineItem,
   ["timeline_id", "post_id", "user_id", "type"],
-  InputType
+  InputType,
 ) {}

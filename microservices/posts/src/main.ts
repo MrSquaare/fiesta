@@ -10,10 +10,12 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
+  app.enableShutdownHooks();
+
   await app.listen(port);
 
   Logger.log(
-    `🚀 Posts service is running on: http://localhost:${port}/graphql`
+    `🚀 Posts service is running on: http://localhost:${port}/graphql`,
   );
 }
 

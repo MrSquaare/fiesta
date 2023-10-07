@@ -14,13 +14,13 @@ export class AuthController {
 
   @MessagePattern(AUTH_BRIDGE_CHECK_AUTH)
   async checkAuth(
-    @Payload() reqMsg: CheckAuthReqMessage
+    @Payload() reqMsg: CheckAuthReqMessage,
   ): Promise<CheckAuthResMessage> {
     try {
       const account = await this.authService.authenticate(reqMsg.token);
       const authorized = await this.authService.authorize(
         account,
-        reqMsg.roles
+        reqMsg.roles,
       );
 
       if (!authorized) {

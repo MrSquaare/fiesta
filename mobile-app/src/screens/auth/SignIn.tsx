@@ -23,15 +23,12 @@ import {
   convertRHFToFormErrors,
 } from "../../utilities";
 
-export type SignInFieldValues = {
-  email: string;
-  password: string;
-};
-
-const schema = z.object({
+export const signInSchema = z.object({
   email: z.string().email(),
   password: z.string(),
 });
+
+export type SignInFieldValues = z.infer<typeof signInSchema>;
 
 export const SignIn: FC = () => {
   const [signIn, { loading, data, error }] = useSignInMutation();
@@ -43,16 +40,16 @@ export const SignIn: FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignInFieldValues>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(signInSchema),
   });
 
   const apiFormErrors = useMemo(
     () => convertApolloToFormErrors<SignInFieldValues>(error),
-    [error]
+    [error],
   );
   const formErrors = useMemo(
     () => convertRHFToFormErrors<SignInFieldValues>(errors),
-    [errors]
+    [errors],
   );
 
   const onSubmit = useCallback(
@@ -64,7 +61,7 @@ export const SignIn: FC = () => {
         },
       });
     },
-    [signIn]
+    [signIn],
   );
 
   useEffect(() => {

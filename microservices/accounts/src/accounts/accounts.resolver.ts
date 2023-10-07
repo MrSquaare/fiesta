@@ -19,7 +19,7 @@ export class AccountsResolver {
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Account)
   createAccount(
-    @Args("createAccountInput") createAccountInput: CreateAccountInput
+    @Args("createAccountInput") createAccountInput: CreateAccountInput,
   ) {
     return this.accountsService.create(createAccountInput);
   }
@@ -41,7 +41,7 @@ export class AccountsResolver {
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Account)
   updateAccount(
-    @Args("updateAccountInput") updateAccountInput: UpdateAccountInput
+    @Args("updateAccountInput") updateAccountInput: UpdateAccountInput,
   ) {
     return this.accountsService.update(updateAccountInput);
   }

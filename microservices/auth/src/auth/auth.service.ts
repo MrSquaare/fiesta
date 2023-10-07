@@ -20,7 +20,7 @@ export class AuthService {
   async signIn(signInInput: SignInInput) {
     const account = await this.accountBridgeService.getByCredentials(
       signInInput.email,
-      signInInput.password
+      signInInput.password,
     );
 
     const auth = new Auth();
@@ -33,7 +33,7 @@ export class AuthService {
   async signUp(signUpInput: SignUpInput) {
     const account = await this.accountBridgeService.createByCredentials(
       signUpInput.email,
-      signUpInput.password
+      signUpInput.password,
     );
 
     const auth = new Auth();

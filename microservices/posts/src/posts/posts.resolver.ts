@@ -64,7 +64,7 @@ export class PostsResolver {
   @Mutation(() => Post)
   createMyPost(
     @Args("createMyPostInput") createMyPostInput: CreateMyPostInput,
-    @CurrentUser() user: UserDTO
+    @CurrentUser() user: UserDTO,
   ) {
     return this.postsService.createMyPost(createMyPostInput, user);
   }
@@ -74,7 +74,7 @@ export class PostsResolver {
   @Mutation(() => Post)
   removeMyPost(
     @Args("id", { type: () => ID }) id: string,
-    @CurrentUser() user: UserDTO
+    @CurrentUser() user: UserDTO,
   ) {
     return this.postsService.removeMyPost(id, user);
   }

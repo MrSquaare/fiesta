@@ -19,7 +19,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
-    private readonly timelineBridgeService: TimelineBridgeService
+    private readonly timelineBridgeService: TimelineBridgeService,
   ) {}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
@@ -102,7 +102,7 @@ export class UsersService {
 
   async createMyUser(
     createMyUserInput: CreateMyUserInput,
-    account: AccountDTO
+    account: AccountDTO,
   ): Promise<User> {
     const existingUser = await this.usersRepository.findOne({
       where: [
@@ -144,7 +144,7 @@ export class UsersService {
 
   async updateMyUser(
     updateMyUserInput: UpdateUserInput,
-    account: AccountDTO
+    account: AccountDTO,
   ): Promise<User> {
     const user = await this.usersRepository.findOne({
       where: { account_id: account.id },

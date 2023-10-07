@@ -10,7 +10,7 @@ import { UpdateTimelineInput } from "./dto/update-timeline.input";
 export class TimelinesService {
   constructor(
     @InjectRepository(Timeline)
-    private readonly timelinesRepository: Repository<Timeline>
+    private readonly timelinesRepository: Repository<Timeline>,
   ) {}
 
   async create(createTimelineInput: CreateTimelineInput): Promise<Timeline> {
@@ -46,13 +46,12 @@ export class TimelinesService {
   }
 
   async update(updateTimelineInput: UpdateTimelineInput) {
-    const timeline = await this.timelinesRepository.preload(
-      updateTimelineInput
-    );
+    const timeline =
+      await this.timelinesRepository.preload(updateTimelineInput);
 
     if (!timeline) {
       throw new NotFoundException(
-        `Timeline #${updateTimelineInput.id} not found`
+        `Timeline #${updateTimelineInput.id} not found`,
       );
     }
 

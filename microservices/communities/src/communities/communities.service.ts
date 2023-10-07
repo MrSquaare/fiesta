@@ -10,7 +10,7 @@ import { UpdateCommunityInput } from "./dto/update-community.input";
 export class CommunitiesService {
   constructor(
     @InjectRepository(Community)
-    private readonly CommunitiesRepository: Repository<Community>
+    private readonly CommunitiesRepository: Repository<Community>,
   ) {}
 
   async create(createCommunityInput: CreateCommunityInput): Promise<Community> {
@@ -46,13 +46,12 @@ export class CommunitiesService {
   }
 
   async update(updateCommunityInput: UpdateCommunityInput) {
-    const Community = await this.CommunitiesRepository.preload(
-      updateCommunityInput
-    );
+    const Community =
+      await this.CommunitiesRepository.preload(updateCommunityInput);
 
     if (!Community) {
       throw new NotFoundException(
-        `Community #${updateCommunityInput.id} not found`
+        `Community #${updateCommunityInput.id} not found`,
       );
     }
 

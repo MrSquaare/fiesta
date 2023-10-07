@@ -14,7 +14,7 @@ export class PostsService {
   constructor(
     private readonly userBridgeService: UserBridgeService,
     @InjectRepository(Post)
-    private readonly postsRepository: Repository<Post>
+    private readonly postsRepository: Repository<Post>,
   ) {}
 
   async create(createPostInput: CreatePostInput): Promise<Post> {
@@ -75,7 +75,7 @@ export class PostsService {
 
   async createMyPost(
     createMyPostInput: CreateMyPostInput,
-    user: UserDTO
+    user: UserDTO,
   ): Promise<Post> {
     const post = this.postsRepository.create({
       ...createMyPostInput,

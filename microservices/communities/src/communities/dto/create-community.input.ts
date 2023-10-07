@@ -12,5 +12,5 @@ export class CreateCommunityInput extends PickType(
     "is_official",
     "is_verified",
   ],
-  InputType
+  InputType,
 ) {}

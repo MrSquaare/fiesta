@@ -5,5 +5,5 @@ import { InputType, PickType } from "@nestjs/graphql";
 export class AddFollowerInput extends PickType(
   Follower,
   ["user_id", "follower_id"],
-  InputType
+  InputType,
 ) {}

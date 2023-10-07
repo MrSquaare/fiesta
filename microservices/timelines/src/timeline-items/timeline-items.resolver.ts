@@ -30,7 +30,7 @@ export class TimelineItemsResolver {
   @Mutation(() => TimelineItem)
   createTimelineItem(
     @Args("createTimelineItemInput")
-    createTimelineItemInput: CreateTimelineItemInput
+    createTimelineItemInput: CreateTimelineItemInput,
   ) {
     return this.timelineitemsService.create(createTimelineItemInput);
   }
@@ -50,7 +50,7 @@ export class TimelineItemsResolver {
   @Mutation(() => TimelineItem)
   updateTimelineItem(
     @Args("updateTimelineItemInput")
-    updateTimelineItemInput: UpdateTimelineItemInput
+    updateTimelineItemInput: UpdateTimelineItemInput,
   ) {
     return this.timelineitemsService.update(updateTimelineItemInput);
   }

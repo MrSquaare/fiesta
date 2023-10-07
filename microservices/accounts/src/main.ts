@@ -20,11 +20,13 @@ async function bootstrap() {
 
   const port = parseInt(process.env.PORT) || 3001;
 
+  app.enableShutdownHooks();
+
   await app.startAllMicroservices();
   await app.listen(port);
 
   Logger.log(
-    `🚀 Accounts service is running on: http://localhost:${port}/graphql`
+    `🚀 Accounts service is running on: http://localhost:${port}/graphql`,
   );
 }
 

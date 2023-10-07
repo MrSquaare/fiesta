@@ -27,7 +27,7 @@ import { AccountsModule } from "./accounts/accounts.module";
             database: process.env.DATABASE_FILE || "sqlite.db",
             autoLoadEntities: true,
             synchronize: true,
-          }
+          },
     ),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloFederationDriver,

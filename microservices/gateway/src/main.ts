@@ -11,6 +11,8 @@ async function bootstrap() {
   const port = parseInt(process.env.PORT) || 3000;
 
   app.enableCors();
+  app.enableShutdownHooks();
+
   await app.listen(port);
 
   Logger.log(`🚀 Gateway is running on: http://localhost:${port}/graphql`);

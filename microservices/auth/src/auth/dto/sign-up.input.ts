@@ -5,5 +5,5 @@ import { InputType, PickType } from "@nestjs/graphql";
 export class SignUpInput extends PickType(
   Account,
   ["email", "password"],
-  InputType
+  InputType,
 ) {}

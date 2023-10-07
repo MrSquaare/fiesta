@@ -32,7 +32,7 @@ export const App: FC = () => {
   const setCurrentUser = useAppStore((state) => state.setCurrentUser);
   const clearCurrentUser = useAppStore((state) => state.clearCurrentUser);
   const { data: userData, error: userError } = useFindMyUserQuery(
-    token ? {} : { skip: true }
+    token ? {} : { skip: true },
   );
 
   useEffect(() => {
@@ -104,11 +104,7 @@ export const App: FC = () => {
 
 export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <MantineProvider
-      theme={{ colorScheme: "dark" }}
-      withGlobalStyles
-      withNormalizeCSS
-    >
+    <MantineProvider forceColorScheme={"dark"}>
       <ApolloProvider client={client}>{children}</ApolloProvider>
     </MantineProvider>
   );

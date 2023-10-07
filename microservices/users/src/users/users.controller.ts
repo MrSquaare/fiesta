@@ -17,7 +17,7 @@ export class UsersController {
 
   @MessagePattern(USER_BRIDGE_CHECK_USER)
   async checkUser(
-    @Payload() payload: CheckUserReqMessage
+    @Payload() payload: CheckUserReqMessage,
   ): Promise<CheckUserResMessage> {
     try {
       const user = await this.usersService.findOne(payload.id);
@@ -34,11 +34,11 @@ export class UsersController {
 
   @MessagePattern(USER_BRIDGE_GET_ACCOUNT_USER)
   async getAccountUser(
-    @Payload() payload: GetAccountUserReqMessage
+    @Payload() payload: GetAccountUserReqMessage,
   ): Promise<GetAccountUserResMessage> {
     try {
       const user = await this.usersService.findOneByAccountId(
-        payload.accountId
+        payload.accountId,
       );
 
       return {

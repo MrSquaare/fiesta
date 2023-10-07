@@ -9,10 +9,12 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
+  app.enableShutdownHooks();
+
   await app.listen(port);
 
   Logger.log(
-    `🚀 Communities service is running on: http://localhost:${port}/graphql`
+    `🚀 Communities service is running on: http://localhost:${port}/graphql`,
   );
 }
 

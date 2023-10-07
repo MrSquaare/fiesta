@@ -64,11 +64,11 @@ export const SignUp: FC = () => {
 
   const apiFormErrors = useMemo(
     () => convertApolloToFormErrors<SignUpFieldValues>(error),
-    [error]
+    [error],
   );
   const formErrors = useMemo(
     () => convertRHFToFormErrors<SignUpFieldValues>(errors),
-    [errors]
+    [errors],
   );
 
   const onSubmit = useCallback(
@@ -80,7 +80,7 @@ export const SignUp: FC = () => {
         },
       });
     },
-    [signUp]
+    [signUp],
   );
 
   useEffect(() => {

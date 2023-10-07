@@ -28,7 +28,7 @@ export class TimelinesResolver {
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Timeline)
   createTimeline(
-    @Args("createTimelineInput") createTimelineInput: CreateTimelineInput
+    @Args("createTimelineInput") createTimelineInput: CreateTimelineInput,
   ) {
     return this.timelinesService.create(createTimelineInput);
   }
@@ -47,7 +47,7 @@ export class TimelinesResolver {
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Timeline)
   updateTimeline(
-    @Args("updateTimelineInput") updateTimelineInput: UpdateTimelineInput
+    @Args("updateTimelineInput") updateTimelineInput: UpdateTimelineInput,
   ) {
     return this.timelinesService.update(updateTimelineInput);
   }

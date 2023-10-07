@@ -18,11 +18,13 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
+  app.enableShutdownHooks();
+
   await app.startAllMicroservices();
   await app.listen(port);
 
   Logger.log(
-    `🚀 Timeline service is running on: http://localhost:${port}/graphql`
+    `🚀 Timeline service is running on: http://localhost:${port}/graphql`,
   );
 }
 

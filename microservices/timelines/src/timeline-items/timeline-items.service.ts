@@ -17,24 +17,24 @@ export class TimelineItemsService {
   constructor(
     @InjectRepository(TimelineItem)
     private readonly timelineItemsRepository: Repository<TimelineItem>,
-    private readonly timelinesService: TimelinesService
+    private readonly timelinesService: TimelinesService,
   ) {}
 
   async create(
-    createTimelineItemInput: CreateTimelineItemInput
+    createTimelineItemInput: CreateTimelineItemInput,
   ): Promise<TimelineItem> {
     const timelineExists = await this.timelinesService.exists(
-      createTimelineItemInput.timeline_id
+      createTimelineItemInput.timeline_id,
     );
 
     if (!timelineExists) {
       throw new BadRequestException(
-        `Timeline #${createTimelineItemInput.timeline_id} not found`
+        `Timeline #${createTimelineItemInput.timeline_id} not found`,
       );
     }
 
     const timelineItem = this.timelineItemsRepository.create(
-      createTimelineItemInput
+      createTimelineItemInput,
     );
 
     return await this.timelineItemsRepository.save(timelineItem);
@@ -77,23 +77,23 @@ export class TimelineItemsService {
   async update(updateTimelineItemInput: UpdateTimelineItemInput) {
     if (updateTimelineItemInput.timeline_id) {
       const timelineExists = await this.timelinesService.exists(
-        updateTimelineItemInput.timeline_id
+        updateTimelineItemInput.timeline_id,
       );
 
       if (!timelineExists) {
         throw new BadRequestException(
-          `Timeline #${updateTimelineItemInput.timeline_id} not found`
+          `Timeline #${updateTimelineItemInput.timeline_id} not found`,
         );
       }
     }
 
     const timelineItem = await this.timelineItemsRepository.preload(
-      updateTimelineItemInput
+      updateTimelineItemInput,
     );
 
     if (!timelineItem) {
       throw new NotFoundException(
-        `TimelineItem #${updateTimelineItemInput.id} not found`
+        `TimelineItem #${updateTimelineItemInput.id} not found`,
       );
     }
 

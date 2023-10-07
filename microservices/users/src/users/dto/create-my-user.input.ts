@@ -10,5 +10,5 @@ import {
 export class CreateMyUserInput extends IntersectionType(
   PickType(User, ["username", "display_name"]),
   PartialType(PickType(User, ["biography"])),
-  InputType
+  InputType,
 ) {}

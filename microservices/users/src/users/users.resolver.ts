@@ -70,7 +70,7 @@ export class UsersResolver {
   @Mutation(() => User)
   createMyUser(
     @Args("createMyUserInput") createMyUserInput: CreateMyUserInput,
-    @CurrentAccount() account: AccountDTO
+    @CurrentAccount() account: AccountDTO,
   ) {
     return this.usersService.createMyUser(createMyUserInput, account);
   }
@@ -79,7 +79,7 @@ export class UsersResolver {
   @Mutation(() => User)
   updateMyUser(
     @Args("updateMyUserInput") updateMyUserInput: UpdateMyUserInput,
-    @CurrentAccount() account: AccountDTO
+    @CurrentAccount() account: AccountDTO,
   ) {
     return this.usersService.updateMyUser(updateMyUserInput, account);
   }

@@ -19,7 +19,7 @@ export class CommunitiesResolver {
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Community)
   createCommunity(
-    @Args("createCommunityInput") createCommunityInput: CreateCommunityInput
+    @Args("createCommunityInput") createCommunityInput: CreateCommunityInput,
   ) {
     return this.communitiesService.create(createCommunityInput);
   }
@@ -38,7 +38,7 @@ export class CommunitiesResolver {
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Community)
   updateCommunity(
-    @Args("updateCommunityInput") updateCommunityInput: UpdateCommunityInput
+    @Args("updateCommunityInput") updateCommunityInput: UpdateCommunityInput,
   ) {
     return this.communitiesService.update(updateCommunityInput);
   }

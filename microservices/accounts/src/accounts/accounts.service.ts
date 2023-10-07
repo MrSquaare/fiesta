@@ -14,7 +14,7 @@ import { UpdateAccountInput } from "./dto/update-account.input";
 export class AccountsService {
   constructor(
     @InjectRepository(Account)
-    private readonly accountsRepository: Repository<Account>
+    private readonly accountsRepository: Repository<Account>,
   ) {}
 
   async create(createAccountInput: CreateAccountInput): Promise<Account> {
@@ -50,7 +50,7 @@ export class AccountsService {
 
     if (!account) {
       throw new NotFoundException(
-        `Account #${updateAccountInput.id} not found`
+        `Account #${updateAccountInput.id} not found`,
       );
     }
 

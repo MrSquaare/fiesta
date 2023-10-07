@@ -28,7 +28,7 @@ export class FollowersResolver {
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Follower)
   createFollower(
-    @Args("createFollowerInput") createFollowerInput: AddFollowerInput
+    @Args("createFollowerInput") createFollowerInput: AddFollowerInput,
   ) {
     return this.followersService.create(createFollowerInput);
   }
@@ -47,7 +47,7 @@ export class FollowersResolver {
   @UseGuards(AuthBridgeGuard)
   @Mutation(() => Follower)
   removeFollower(
-    @Args("removeFollowerInput") removeFollowerInput: RemoveFollowerInput
+    @Args("removeFollowerInput") removeFollowerInput: RemoveFollowerInput,
   ) {
     return this.followersService.remove(removeFollowerInput);
   }

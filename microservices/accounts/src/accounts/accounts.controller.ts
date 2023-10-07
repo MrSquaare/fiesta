@@ -20,7 +20,7 @@ export class AccountsController {
 
   @MessagePattern(ACCOUNT_BRIDGE_CHECK_ACCOUNT)
   async checkAccount(
-    @Payload() payload: CheckAccountReqMessage
+    @Payload() payload: CheckAccountReqMessage,
   ): Promise<CheckAccountResMessage> {
     try {
       const account = await this.accountsService.findOne(payload.id);
@@ -37,12 +37,12 @@ export class AccountsController {
 
   @MessagePattern(ACCOUNT_BRIDGE_CREATE_BY_CREDENTIALS)
   async createByCredentials(
-    @Payload() payload: CreateByCredentialsReqMessage
+    @Payload() payload: CreateByCredentialsReqMessage,
   ): Promise<CreateByCredentialsResMessage> {
     try {
       const account = await this.accountsService.createByCredentials(
         payload.email,
-        payload.password
+        payload.password,
       );
 
       return {
@@ -57,12 +57,12 @@ export class AccountsController {
 
   @MessagePattern(ACCOUNT_BRIDGE_GET_BY_CREDENTIALS)
   async getByCredentials(
-    @Payload() payload: GetByCredentialsReqMessage
+    @Payload() payload: GetByCredentialsReqMessage,
   ): Promise<GetByCredentialsResMessage> {
     try {
       const account = await this.accountsService.getByCredentials(
         payload.email,
-        payload.password
+        payload.password,
       );
 
       return {

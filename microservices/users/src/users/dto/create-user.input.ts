@@ -17,5 +17,5 @@ export class CreateUserInput extends IntersectionType(
     "following_timeline_id",
   ]),
   PartialType(PickType(User, ["biography"])),
-  InputType
+  InputType,
 ) {}

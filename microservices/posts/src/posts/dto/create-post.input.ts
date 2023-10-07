@@ -5,5 +5,5 @@ import { InputType, PickType } from "@nestjs/graphql";
 export class CreatePostInput extends PickType(
   Post,
   ["content", "author_id"],
-  InputType
+  InputType,
 ) {}

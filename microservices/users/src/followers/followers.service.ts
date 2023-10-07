@@ -13,7 +13,7 @@ export class FollowersService {
   constructor(
     @InjectRepository(Follower)
     private readonly followersRepository: Repository<Follower>,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
   ) {}
 
   async create(createFollowerInput: AddFollowerInput) {
@@ -21,17 +21,17 @@ export class FollowersService {
 
     if (!userExists) {
       throw new BadRequestException(
-        `User #${createFollowerInput.user_id} not found`
+        `User #${createFollowerInput.user_id} not found`,
       );
     }
 
     const followerExists = this.usersService.exists(
-      createFollowerInput.follower_id
+      createFollowerInput.follower_id,
     );
 
     if (!followerExists) {
       throw new BadRequestException(
-        `User #${createFollowerInput.follower_id} not found`
+        `User #${createFollowerInput.follower_id} not found`,
       );
     }
 

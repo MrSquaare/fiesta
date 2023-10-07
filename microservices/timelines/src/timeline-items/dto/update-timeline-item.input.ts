@@ -4,7 +4,7 @@ import { CreateTimelineItemInput } from "./create-timeline-item.input";
 
 @InputType()
 export class UpdateTimelineItemInput extends PartialType(
-  CreateTimelineItemInput
+  CreateTimelineItemInput,
 ) {
   @Field(() => ID)
   id: string;

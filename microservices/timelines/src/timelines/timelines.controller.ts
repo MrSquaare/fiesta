@@ -17,11 +17,11 @@ export class TimelinesController {
 
   @MessagePattern(TIMELINE_BRIDGE_INIT_COMMUNITY)
   async initCommunity(
-    @Payload() reqMsg: InitCommunityReqMessage
+    @Payload() reqMsg: InitCommunityReqMessage,
   ): Promise<InitCommunityResMessage> {
     try {
       const [timeline] = await this.timelinesService.initCommunity(
-        reqMsg.community_id
+        reqMsg.community_id,
       );
 
       return {
@@ -36,7 +36,7 @@ export class TimelinesController {
 
   @MessagePattern(TIMELINE_BRIDGE_INIT_USER)
   async timelineCheck(
-    @Payload() reqMsg: InitUserReqMessage
+    @Payload() reqMsg: InitUserReqMessage,
   ): Promise<InitUserResMessage> {
     try {
       const [timeline, forYouTimeline, followingTimeline] =

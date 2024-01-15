@@ -18,6 +18,16 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
+  settings: {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"],
+    },
+    "import/resolver": {
+      typescript: {
+        project: "**/*/tsconfig.json",
+      },
+    },
+  },
   plugins: ["@typescript-eslint", "prettier"],
   rules: {
     "prettier/prettier": "warn",

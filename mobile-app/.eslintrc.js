@@ -4,7 +4,6 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
-    "plugin:tailwindcss/recommended",
   ],
   env: {
     browser: true,
@@ -18,6 +17,5 @@ module.exports = {
     "react/jsx-curly-brace-presence": ["warn", { props: "always" }],
     "react/jsx-sort-props": ["warn"],
     "react/prop-types": ["off"],
-    "tailwindcss/no-custom-classname": ["off"],
   },
 };

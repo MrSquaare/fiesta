@@ -1,17 +1,22 @@
 {
   "baseBranch": "origin/main",
-  "npmClient": "npm",
+  "npmClient": "pnpm",
   "pipeline": {
+    "dev:android": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev:ios": {
+      "cache": false,
+      "persistent": true
+    },
     "dev": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
-    },
-    "build:desktop": {
-      "dependsOn": [],
-      "outputs": ["dist/**", "src-tauri/target/**"]
     },
     "build:android": {
       "dependsOn": [],
@@ -22,22 +27,28 @@
       "outputs": ["dist/**", "ios/App/build/**"]
     },
     "start": {
-      "outputs": []
+      "cache": false,
+      "persistent": true
     },
     "lint": {
-      "outputs": []
+      "cache": false,
+      "persistent": true
     },
     "format": {
-      "outputs": []
+      "cache": false,
+      "persistent": true
     },
     "test": {
-      "outputs": []
+      "cache": false,
+      "persistent": true
     },
     "clean": {
-      "outputs": []
+      "cache": false,
+      "persistent": true
     },
     "fclean": {
-      "outputs": []
+      "cache": false,
+      "persistent": true
     }
   }
 }

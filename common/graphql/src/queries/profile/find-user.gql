@@ -1,0 +1,10 @@
+query findUser($username: String!) {
+  userByUsername(username: $username) {
+    id,
+    username,
+    display_name,
+    biography,
+    followers_count,
+    following_count,
+  }
+}

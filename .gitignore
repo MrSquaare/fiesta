@@ -1,8 +1,14 @@
 # Node
 node_modules/
 
+# Env
+*.env
+
 # Logs
 *.log
+
+# Turbo
+.turbo/
 
 # OS
 .DS_Store

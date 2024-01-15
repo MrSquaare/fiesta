@@ -1,0 +1,13 @@
+mutation createMyUser($username: String!, $displayName: String!) {
+  createMyUser(createMyUserInput: {
+    username: $username,
+    display_name: $displayName,
+  }) {
+    id,
+    username,
+    display_name,
+    biography,
+    followers_count,
+    following_count,
+  }
+}

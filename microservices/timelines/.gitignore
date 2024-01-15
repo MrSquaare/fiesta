@@ -1,0 +1,21 @@
+# Node
+node_modules/
+
+# Database
+*.db*
+*.sqlite*
+
+# Env
+*.env
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# Build
+dist/
+
+# Tests
+coverage/

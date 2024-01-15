@@ -2,7 +2,7 @@
 
 Time to fiesta! A Twitter-like application.
 
-Please see [bleeding-dev branch](https://github.com/MrSquaare/fiesta/tree/bleeding-dev) for an up-to-date version.
+This is a bleeding development version (an unstable, WIP, version).
 
 ## Table of Contents
 
@@ -18,13 +18,14 @@ Please see [bleeding-dev branch](https://github.com/MrSquaare/fiesta/tree/bleedi
 
 This repository is a [monorepo](https://en.wikipedia.org/wiki/Monorepo), powered by [Turborepo](https://turborepo.org/).
 
-It is composed of two main projects:
+It is composed of several projects:
 
-- the [Server](server), powered by [NestJS](https://nestjs.com/)
+- the [Microservices](microservices), powered by [NestJS](https://nestjs.com/)
 - the [Desktop App](desktop-app), powered by [Vite](https://vitejs.dev/) and [Tauri](https://tauri.app/)
 - the [Mobile App](desktop-app), powered by [Vite](https://vitejs.dev/) and [Capacitor](https://capacitorjs.com/)
 
-The packages common to both projects can be found in [common](common)
+The packages common to all projects can be found in [common](common)
+The packages common to microservices projects can be found in [modules](modules)
 
 ## Getting started
 

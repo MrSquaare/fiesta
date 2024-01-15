@@ -20,15 +20,15 @@
     "fclean": "rimraf node_modules/"
   },
   "devDependencies": {
-    "@apollo/client": "^3.8.5",
+    "@apollo/client": "^3.8.9",
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/import-types-preset": "^3.0.0",
     "@graphql-codegen/typescript": "4.0.1",
     "@graphql-codegen/typescript-operations": "4.0.1",
-    "@graphql-codegen/typescript-react-apollo": "4.0.0",
+    "@graphql-codegen/typescript-react-apollo": "4.1.0",
     "@parcel/watcher": "^2.3.0",
     "graphql": "^16.8.1",
-    "typescript": "^5.2.2",
-    "wait-on": "^7.0.1"
+    "typescript": "^5.3.3",
+    "wait-on": "^7.2.0"
   }
 }
